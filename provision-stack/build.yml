@@ -1,0 +1,68 @@
+# this build.yml is all done locally on the ansible vpro VPC controller
+- name: Generate the artifact, copy the artifact and sql file to files directory
+  hosts: localhost
+  connection:  local
+  become: yes
+
+  tasks:
+    - name: Install jdk, maven and git
+    # I think JDK 8 is deprecated
+      apt:
+        name: "{{item}}"
+        state: present
+        update_cache: yes
+      loop:
+        - git
+        - openjdk-8-jdk
+        - maven
+
+
+    - name: Clone the source code from github devopshydclub vprofile-project, branch vp-rem
+      git:
+      # git module
+        repo: 'https://github.com/devopshydclub/vprofile-project.git'
+        dest: ./Vprofile-repo
+        version: vp-rem
+      
+      register: git_status_variable
+
+
+    - name: mvn install command to build artifact
+    # the source code will be rebuilt any time there is a change in the git source code above
+    # Any new commit will require a rebuild
+      command: "mvn install"
+      args:
+        chdir: Vprofile-repo
+      when: git_status_variable.changed
+      
+      register: mvn_info_variable
+
+
+    - name: Copy artifacts to files directory
+      copy:
+        src: "{{item}}"
+        dest: files/ROOT.war
+      with_fileglob: Vprofile-repo/target/*.war
+      # any .war file in the target directory will be copied into the files directory (for now this is locally on the
+      # ansible controller)
+      # create a files directory in the local file structure with a test file so that we can push to git.
+
+
+    - name: Copy SQL file to files directory as well
+      copy:
+        src: Vprofile-repo/src/main/resources/db_backup.sql
+        dest: files/db_backup.sql
+
+    
+    #- name: Copy artifacts to files directory
+    #  command: "cp Vprofile-repo/target/vprofile-v2.war files/"
+
+
+    #- name: Copy SQL file to files directory
+    #  command: "cp Vprofile-repo/src/main/resources/db_backup.sql files/"
+    
+
+
+    
+
+

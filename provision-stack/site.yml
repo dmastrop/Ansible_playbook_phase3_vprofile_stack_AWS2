@@ -5,31 +5,38 @@
 - name: Build the Artifact ROOT.war and SQL file to be copied in the files/ directory
   import_playbook: build.yml
 
+
 # to set up the /etc/hosts file the hostsip file will be used. This has all the private ips and host name mappings
 - name: Set Hosts to Ip Mapping in /etc/hosts file of all servers
   import_playbook: set_host_ip_map.yml
 
+
 # install the database and make sure it is up and running
 - name: Set up the dbserver
   import_playbook: db.yml
+
 
 # take the SQL configuration file and run all the SQL queries from that to config the SQL server. 
 # dbsql file will be pushed by build.yml (above) to the db server
 - name: Deploy the SQL file on Dbserver
   import_playbook: dbdeploy.yml
 
+
 # This will make sure memcached service is running and configured on port 11211
 - name: Set up Memcached service
   import_playbook: memcache.yml
+
 
 # Install rabbitmq dependencies install rabbitmq and create rabbitmq user and password with correctc privileges
 - name: Set up rabbitmq service
   import_playbook: rabbitmq.yml
 
+
 #  Install tomcat service and deploy the artifact. The artifact is built by build.yml and already pushed to this app server in temp directory
 # This playbook will then deploy artifact in the tomcat home directory using the templates/applicaton.js file
 - name: Set up Tomcat application server
   import_playbook: appserver.yml
+
 
 # Provision nginx service using the templates/nginxvpro.js file
 - name: Set up Nginx webserver
