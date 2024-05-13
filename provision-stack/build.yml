@@ -50,6 +50,7 @@
 
 
     - name: Copy SQL file to files directory as well
+    # this file will be used to configure the schema in the backend mysql server.
       copy:
         src: Vprofile-repo/src/main/resources/db_backup.sql
         dest: files/db_backup.sql
