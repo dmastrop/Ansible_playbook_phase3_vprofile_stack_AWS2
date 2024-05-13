@@ -8,6 +8,7 @@
     - name: Install jdk, maven and git
     # I think JDK 8 is deprecated
       apt:
+      # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_module.html
         name: "{{item}}"
         state: present
         update_cache: yes
@@ -19,7 +20,7 @@
 
     - name: Clone the source code from github devopshydclub vprofile-project, branch vp-rem
       git:
-      # git module
+      # git module https://docs.ansible.com/ansible/latest/collections/ansible/builtin/git_module.html
         repo: 'https://github.com/devopshydclub/vprofile-project.git'
         dest: ./Vprofile-repo
         version: vp-rem
@@ -43,7 +44,7 @@
         src: "{{item}}"
         dest: files/ROOT.war
       with_fileglob: Vprofile-repo/target/*.war
-      # any .war file in the target directory will be copied into the files directory (for now this is locally on the
+      # any .war file in the target directory will be copied into the files directory (this files directoy is local on the
       # ansible controller)
       # create a files directory in the local file structure with a test file so that we can push to git.
 
