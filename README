@@ -341,3 +341,37 @@ next time the setup is brought up (bastion host pem key and the EC2 instances pe
 
 # Overview for project23 (vprofile-stack-phase3 branch)
 
+Project23: This will rollout all the services into the backend server infrastructure created in phase2
+There will be several new vars files, template files and ansible playbook yml files to do this, as well as an ansible.cfg file with the SSH parameter settings and configuration. The details of each of these files are below.
+
+The general hierarchy of the repository in regards to these files and phase 1 and 2 files as well:
+
+vars/
+  output_vars_IDs (created in phase1) (this needs to be pushed from the ansible controller to github and pulled to local VSCode repo/workspace)
+
+  vpc_setup (created in phase1)
+
+  vprostacksetup (create in phase2)
+
+
+provision-stack/
+  the EC2 private pem SSH login key (note this is a .gitignore file and is not pushed to github remote repo (created in phase2)
+  
+  inventory-vpro (created in phase2) (needs to be pushed from ansible controller to github and pulled to local VSCode repo/workspace)
+
+  ansible.cfg (created in phase3)
+
+  site.yml (master ansible-playbook for phase3 service provisioning) (created in phase3)
+
+
+  provision-stack/group_vars:
+    hostsip (created in phase2) (Need to be pushed from ansible controller to github and then pulled to local VSCode repo/workspace)
+
+    dbsrvgroup (created in phase3)
+
+
+  provision-stack/templates:
+    application.j2 (this is application.properties from the vprofile-application source code) (created in phase3)
+
+    nginxvpro.j2 (created in phase3)
+
