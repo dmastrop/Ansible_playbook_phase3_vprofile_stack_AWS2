@@ -41,6 +41,7 @@
 
     - name: Copy artifacts to files directory
       copy:
+      # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/copy_module.html
         src: "{{item}}"
         dest: files/ROOT.war
       with_fileglob: Vprofile-repo/target/*.war
@@ -52,6 +53,7 @@
     - name: Copy SQL file to files directory as well
     # this file will be used to configure the schema in the backend mysql server.
       copy:
+      # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/copy_module.html
         src: Vprofile-repo/src/main/resources/db_backup.sql
         dest: files/db_backup.sql
 

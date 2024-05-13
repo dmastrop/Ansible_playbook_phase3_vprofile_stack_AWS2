@@ -1,0 +1,22 @@
+- name: St the host to ip mapping in /etc/hosts file of all the instances in the stack
+  hosts: all
+  # the hosts "all" will be all the hosts in the inventory-vpro file. All of the ansible_host are defined there
+  # This includes this controller itself.
+  tasks:
+    - name: Import the VPC setup Variables group_vars/hostsip file
+      include_vars: group_vars/hostsip
+      # this will have the lastest private ip address to variables below,  based upon the lastest VPC ansible-playbook run
+      # web01_ip app01_ip rmq01_ip mc01_ip db01_ip
+    
+    - name: Update the hosts file for all the hosts. 
+      # This will modify /etc/hosts on all the hosts below using the group_vars/hostsip private ip addresses of the lastest VPC run
+      blockinfile:
+      # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/blockinfile_module.html
+      # the block will be written into the /etc/hosts file for "all" hosts including this ansible controller
+        path: /etc/hosts
+        block: |
+          {{web01_ip}} web01
+          {{app01_ip}} app01
+          {{rmq01_ip}} rmq01
+          {{mc01_ip}} mc01
+          {{db01_ip}} db01
