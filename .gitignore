@@ -1,3 +1,9 @@
+# mysql items and artifact items from projects 21, 22.23
+# We do not want the files directory of db_backup.sql and ROOT.war pushed to the remote repository
+*.sql
+*.war
+
+
 # gitignore file from project 16
 
 terraform
