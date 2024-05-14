@@ -1,0 +1,73 @@
+---
+# This will provision the mysql service
+- name: Set up Mysql with accounts db and remote login credentials
+  hosts: dbsrvgrp
+  # dbsrvgrp is defined in the inventory-vpro file, which is delcared in ansible.cfg file to establish all ansible
+  # hosts and server groups in this project
+  gather_facts: no
+
+  tasks:
+    - name: Installing Mysql service an dependencies
+      package:
+      # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/package_module.html
+      # python3 is for ubuntu20 onwards
+      # python will ERROR out with ubuntu20+ (this setup is using ubuntu 22)
+      # the ignore_errors: yes will prevent the ansible playbook from aboriting.
+        name: "{{item}}"
+        state: present
+        update_cache: yes
+        cache_valid_time: 86400
+      loop:
+        - mysql-server
+        - mysql-client
+        - python-mysqldb
+        - python3-mysqldb
+        - libmysqlclient-dev
+      ignore_errors: yes
+      tags:
+        - package
+
+    
+    - name: creating the mysql user
+      mysql_user:
+      # https://docs.ansible.com/ansible/latest/collections/community/mysql/mysql_user_module.html
+      # the vars below are coming from group_vars/dbsrvgrp file
+        name: "{{dbuser}}"
+        password: "{{dbpass}}"
+        priv: '*.*: ALL'
+        host: '%'
+        # this % permits login from remote machine
+        state: present
+
+
+    - name: Creating accounts DB
+      mysql_db:
+      # https://docs.ansible.com/ansible/latest/collections/community/mysql/mysql_db_module.html
+      # group_vars/dbsrvgrp vars file
+        name: "{{dbname}}"
+        state: present
+
+
+    - name: Enable remote login to mysql service
+      lineinfile:
+      # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/lineinfile_module.html
+        path: /etc/mysql/mysql.conf.d/mysqld.cnf
+        regexp: '^bind-address'
+        # search for bind-addres in the beginning of the line inthe path above
+        line: 'bind-address = 0.0.0.0'
+        # replace the bind-address with bind-address = 0.0.0.0
+        backup: yes
+      notify:
+        - Restart mysql
+        # this will nofify the handler specified below. The mysql service will be restarted.
+      tags:
+        - conf
+
+
+  handlers:
+    - name: Restart mysql
+      service:
+        name: mysql
+        state: restarted
+        # restart the service after the change to the mysql.conf.d file.
+  

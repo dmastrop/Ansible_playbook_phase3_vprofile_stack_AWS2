@@ -2,6 +2,7 @@
   hosts: all
   # the hosts "all" will be all the hosts in the inventory-vpro file. All of the ansible_host are defined there
   # This includes this controller itself.
+  
   tasks:
     - name: Import the VPC setup Variables group_vars/hostsip file
       include_vars: group_vars/hostsip
