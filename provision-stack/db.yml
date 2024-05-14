@@ -4,6 +4,7 @@
   hosts: dbsrvgrp
   # dbsrvgrp is defined in the inventory-vpro file, which is delcared in ansible.cfg file to establish all ansible
   # hosts and server groups in this project
+  # the group_vars/dbsrvgrp is the vars file for the group
   gather_facts: no
 
   tasks:

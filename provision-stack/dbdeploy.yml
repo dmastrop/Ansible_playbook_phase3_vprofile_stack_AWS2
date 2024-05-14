@@ -1,0 +1,43 @@
+---
+- name: Deploy SQL file on the acounts db
+  hosts: dbsrvgrp
+  # see the inventory-vpro file and ansible.cfg
+  # the dbsrvgrp is the group_vars for the group
+  gather_facts: no
+
+  task:
+    - name: Copy SQL file db_backup.sql to dbsrv group of servers (db01)
+      copy:
+        src: fles/db_backup.sql
+        # this file will be there if the previous playbooks in provision-stack/site.yml have run
+        dest: /tmp/db_backup.sql
+      tags:
+        - deploy
+
+
+    - name: Restoring the DB
+      mysql_db:
+      # https://docs.ansible.com/ansible/latest/collections/community/mysql/mysql_db_module.html
+        name: "{{dbname}}"
+        login_user: "{{dbuser}}"
+        login_password: "{{dbpass}}"
+        state: import
+        # the import is the key. The /tmp/db_backup.sql that was copied over will be imported into the db
+        target: /tmp/db_backup.sql
+      notify:
+        - Restart mysql
+        # use the handler below to restart mysql service
+        - deploy
+
+
+  handlers:
+    - name: Restart mysql
+      service:
+        name: mysql
+        state: restarted
+
+
+
+        
+
+
