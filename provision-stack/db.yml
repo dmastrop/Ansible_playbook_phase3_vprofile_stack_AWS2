@@ -35,6 +35,8 @@
       # the vars below are coming from group_vars/dbsrvgrp file
         name: "{{dbuser}}"
         password: "{{dbpass}}"
+        # this username and password is in the provision-stack/group_vars/dbsrvgrp file
+        # this is the username and password that is in the application.j2 file for JDBC Configuration for Database connection
         priv: '*.*: ALL'
         host: '%'
         # this % permits login from remote machine

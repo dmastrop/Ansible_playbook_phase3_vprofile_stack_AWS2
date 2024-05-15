@@ -1,6 +1,7 @@
 ---
 - name: Install Memcache, Start and enable the service
   hosts: mcsrvgrp
+  # from ansible.cfg file
   gather_facts: no
 
   tasks:

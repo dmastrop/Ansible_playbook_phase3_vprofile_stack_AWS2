@@ -355,7 +355,7 @@ vars/
 
 
 provision-stack/
-  the EC2 private pem SSH login key (note this is a .gitignore file and is not pushed to github remote repo (created in phase2)
+  the EC2 private pem SSH login key loginkey_EC2_vprofile.pem  (note this is a .gitignore file and is not pushed to github remote repo (created in phase2)
   
   inventory-vpro (created in phase2) (needs to be pushed from ansible controller to github and pulled to local VSCode repo/workspace)
 
