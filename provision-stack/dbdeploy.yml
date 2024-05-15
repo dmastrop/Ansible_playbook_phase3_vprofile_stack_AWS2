@@ -5,7 +5,7 @@
   # the dbsrvgrp is the group_vars for the group
   gather_facts: no
 
-  task:
+  tasks:
     - name: Copy SQL file db_backup.sql to dbsrv group of servers (db01)
       copy:
         src: fles/db_backup.sql

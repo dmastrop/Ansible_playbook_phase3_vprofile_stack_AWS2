@@ -1,0 +1,49 @@
+---
+- name: Install Memcache, Start and enable the service
+  hosts: mcsrvgrp
+  gather_facts: no
+
+  tasks:
+    - name: Install Memcache
+      apt:
+      # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_module.html
+        name: memcached
+        state: present
+        update_cache: yes
+        cache_valid_time: 86400
+      tags:
+        - package
+
+
+    - name: Start and Enable Memcache
+      service: 
+      # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/service_module.html
+        name: memcached
+        state: started
+        enabled: yes
+      tags:
+        - svc
+
+
+    - name: Enable remote login to memcache
+      lineinfile:
+      # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/lineinfile_module.html
+        path: /etc/memcached.conf
+        # search for anything that starts with -l and replace with -l 0.0.0.0 so that memcache will listen
+        # on all ip addresses not just the local ip address
+        regexp: '^-l '
+        line: '-l 0.0.0.0'
+        backup: yes
+      notify:
+        - Restart memcached
+        # use the handler below to restart the memcached service
+      tags:
+        - conf
+
+
+  handlers:
+    - name: Restart memcached
+      service:
+        name: memcached
+        state: restarted
+
