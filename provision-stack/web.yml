@@ -1,0 +1,65 @@
+---
+- name: Set up Nginx service
+  hosts: websrvgrp
+  gather_facts: no
+
+  tasks:
+    - name: Install nginx
+      apt: 
+        name: nginx
+        state: present
+        update_cache: yes
+        cache_valid_time: 86400
+        # update only in 1 day intervals
+      tags:
+        - package
+    
+
+    - name: Start and enable Nginx
+      service: 
+        name: nginx
+        state: started
+        enabled: yes
+      tags:
+        - svc
+
+
+    - name: Disable Nginx default website
+      file:
+        path: /etc/nginx/sites-enabled/default
+        state: absent
+        # remove this defaut file
+      tags:
+        - conf
+
+
+    - name: Deploy web config file
+      template:
+        src: templates/nginxvpro.j2
+        dest: /etc/nginx/sites-avaiable/vproapp
+        # this is the file that will replace the default that was removed above. vproapp is the new name
+        # of this default nginx config file.
+      tags:
+        - conf
+
+
+    - name: Enable the vproapp website
+      file:
+        src: /etc/nginx/sites-available/vproapp
+        dest: /etc/nginx/sites-enabled/vproapp
+        state: link
+      notify:
+        - Restart Nginx
+      tags:
+        - conf
+
+
+  handlers:
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted
+
+
+
+    

@@ -176,6 +176,7 @@
                 # created with build.yml, earlier ansible playbook
                 dest: /usr/local/tomcat8/webapps/ROOT.war
                 # default tomcat path
+                
               register: deploy_info_variable
               tags:
                 - deploy
