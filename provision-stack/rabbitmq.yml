@@ -57,8 +57,8 @@
 
     - name: Add RabbitMQ APT Repository
       apt_repository:
-      repo: deb https://dl.bintray.com/rabbitmq/debian {{ ansible_distribution_release }} main
-      state: present
+        repo: deb https://dl.bintray.com/rabbitmq/debian {{ ansible_distribution_release }} main
+        state: present
 
 
 
