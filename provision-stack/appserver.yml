@@ -45,8 +45,8 @@
     - name: Create directory /tmp/tomcat8
       file:
       # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/file_module.html
-      path: /tmp/tomcat8
-      state: directory
+        path: /tmp/tomcat8
+        state: directory
 
 
     - name: Extract tomcat
@@ -176,7 +176,7 @@
                 # created with build.yml, earlier ansible playbook
                 dest: /usr/local/tomcat8/webapps/ROOT.war
                 # default tomcat path
-                
+
               register: deploy_info_variable
               tags:
                 - deploy
