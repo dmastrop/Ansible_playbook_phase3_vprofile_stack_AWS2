@@ -14,7 +14,7 @@
 
 
     - name: Add an Erlang soluton public key
-      apt-key:
+      apt_key:
       # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_key_module.html
       # add the public key below
         url: https://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc
