@@ -78,8 +78,8 @@
         # will fetch the packages list in above repo
         state: present
         update_cache: yes
-        tags:
-          - package
+      tags:
+        - package
 
 
     - name: Start and enable RMQ service
