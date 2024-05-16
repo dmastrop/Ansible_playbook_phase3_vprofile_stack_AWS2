@@ -27,6 +27,7 @@
       notify:
         - Restart mysql
         # use the handler below to restart mysql service
+      tags:
         - deploy
 
 
