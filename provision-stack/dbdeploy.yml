@@ -8,7 +8,7 @@
   tasks:
     - name: Copy SQL file db_backup.sql to dbsrv group of servers (db01)
       copy:
-        src: fles/db_backup.sql
+        src: files/db_backup.sql
         # this file will be there if the previous playbooks in provision-stack/site.yml have run
         dest: /tmp/db_backup.sql
       tags:
