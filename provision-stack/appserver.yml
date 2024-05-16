@@ -1,0 +1,251 @@
+---
+# this is from project 18 ansible playbook tomcat_setup.yml but only for ubuntu 18 or 20. 
+# the project 18 tomcat_setup.yml playbook was for a wide variety of operating systems.
+# I am currently running ubuntu 22
+- name: Set up Tomcat8 & Deploy Artifact
+  hosts: appsrvgrp
+  # this is from provision-stack/ansible.cfg file
+  #gather_facts: no
+
+  vars:
+    timestamp: "{{ansible_date_time.date}}_{{ansible_date_time.hour}}_{{ansible_date_time.minute}}"
+    # timestamp will be used to take a backup. The timestamp will be at runtime.
+    tom_url: https://archive.apache.org/dist/tomcat/tomcat-8/v8.5.37/bin/apache-tomcat-8.5.37.tar.gz
+  tasks:
+    - name: Install JDK on Ubuntu 18/20
+      apt: 
+        name: openjdk-8-jdk
+        state: present
+        update_cache: yes
+
+
+    - name: Download Tomcat Tar Ball/Binaries
+      get_url:
+      # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/get_url_module.html
+        url: "{{tom_url}}"
+        dest: /tmp/tomcat-8.tar.gz
+
+
+    - name: Add tomcat group
+      group:
+        name: tomcat
+        state: present
+
+
+    - name: Add tomcat user
+      user:
+      # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/user_module.html
+        name: tomcat
+        group: tomcat
+        shell: /bin/nologin
+        home: /user/local/tomcat8
+        # home directory of user and of tomcat8 service
+
+
+    - name: Create directory /tmp/tomcat8
+      file:
+      # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/file_module.html
+      path: /tmp/tomcat8
+      state: directory
+
+
+    - name: Extract tomcat
+      unarchive:
+      # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/unarchive_module.html
+        src: /tmp/tomcat-8.tar.tz
+        dest: /tmp/tomcat8/
+        remote_src: yes
+        list_files: yes
+      
+      register: unarchive_info_variable
+      # this will have the list of files that have been extracted from the tarball.
+
+
+    - debug:
+    # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/debug_module.html
+        msg: "{{unarchive_info_variable.files[0].split('/')[0]}}"
+        # we need to extract the tomcat directory name, which is based on the first file in the tarball 
+        # list above.
+        # Split it at the / to get the first name in the path which is the directory name of where it is extracted to
+
+
+    - name: Synchronize /tmp/tomcat8/tomcat_cont /usr/local/tomcat8.
+      synchronize:
+        src: "/tmp/tomcat8/{{unarchive_info_variable.files[0].split('/')[0]}}/"
+        dest: /usr/local/tomcat8/
+        # all of the content in src will be copied into the directory at dest.
+      delegate_to: "{{ inventory_hostname }}"
+      # need to delegate_to, otherwise this is done on localhost. So whereever this is being executed is where
+      # the synchronize will occur.
+
+
+    - name: Change the ownership of the /usr/local/tomcat8 directory
+      file:
+        path: /usr/local/tomcat8
+        # set tomcat as owner of this file 
+        owner: tomcat
+        group: tomcat
+        recurse: yes
+
+
+    - name: Set up tomcat SVC file on ubuntu 16 and 18
+      template:
+      # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/template_module.html
+      # push the local template tomcat8-ubunut-svcfile.js to the destination below
+      # this is the systemd command file
+      # systemctl start tomcat for example will execute ExecStart=/usr/local/tomcat8/bin/catalina.sh run
+        src: templates/tomcat8-ubuntu-svcfile.j2
+        dest: /etc/systemd/system/tomcat8.service
+        mode: "a+x"
+
+
+    - name: for the systemd to reload and re-read the configs (2.4 and above)
+      systemd:
+        daemon_reload: yes
+
+
+    - name: Start & Enable tomcat Service
+      service:
+      # all the steps above for systemctl are so we can manage tomcat through ansible service module
+        name: tomcat8
+        state: started
+        enabled: yes
+      tags:
+        - svc
+
+    - name: Get the stats on the current ROOT artifact file if it is present. 
+    # If this is not present the backup (see task further below) will fail. So we need this information.
+      stat:
+      # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/stat_module.html
+        path: /usr/local/tomcat8/webapps/ROOT
+      register: artifact_stat
+      tags:
+        - deploy
+
+    
+    - name: Stop the tomcat8 service
+      service: 
+        name: tomcat8
+        state: stopped
+      tags:
+        - deploy
+
+
+    - name: BLOCK1 Try to backup and deploy the artifcat .war file
+    # this is a block and rescue
+      block:
+        ## FIRST tasks in the block: this is a backup if there is an existing .war file.
+        - name: Archive the ROOT directory with timetamp above.
+          # see vars: at top of this file
+          archive:
+            path: /usr/local/tomcat8/webapps/ROOT
+            dest: "/opt/ROOT_{{timestamp}}.tgz"
+          when: artifact_stat.stat.exists
+          # see the artifact_stat task above . The stat moudule task above must be true, otherwise skip the backup
+          register: archive_info_variable
+          tags:
+            - deploy
+
+        ## SECOND Taks in the block
+        - name: copy ROOT dir with old_ROOT name
+          shell: cp -r ROOT old_ROOT
+          # another backup taken for rollback if there is a failure in installation of new artifact from build.yml files directory
+          args:
+            chdir: /usr/local/tomcat8/webapps/
+
+        ## THIRD task in the block
+        - name: Delete current artifact
+          file:
+            path: "{{item}}"
+            state: absent
+          when: archive_info_variable.changed
+          # if changed this file is present as backed up from earlier task.
+          # Remove both below only if this is true (files backed up)
+          loop:
+            - /usr/local/tomcat8/webapps/ROOT
+            - /usr/local/tomcat8/webapps/ROOT.war
+          tags:
+            - deploy
+
+        ## FOURTH task BLOCK2 in the block is nested block and rescue within the larger block and rescue.
+        - name: Try deploy artifact else restore from previos old_ROOT
+          block:
+            - name: Deploy nwe vprofile artifact
+              copy:
+                src: files/ROOT.war
+                # created with build.yml, earlier ansible playbook
+                dest: /usr/local/tomcat8/webapps/ROOT.war
+                # default tomcat path
+              register: deploy_info_variable
+              tags:
+                - deploy
+          rescue:
+          # if the deployment above fails, then copy the backup to the ROOT (rollback)
+            - shell: cp -r old_ROOT ROOT
+              args:
+                chdir: /usr/local/tomcat8/webapps/
+
+      # Any task above (4 of them) in the the block "block"  of "Try to backup and deploy the artifcat .war file"
+      # that fails will go to this rescue block. The tomcat service will be started
+      # If no task fails then the next task after "Try to backup and deploy the artifcat .war file" is to 
+      # start the tomcat service (see next task below this rescue) with the new artifact installed
+      rescue:
+        - name: Start tomcat8 svc
+          service:
+            name: tomcat8
+            state: started
+
+    
+    - name: Start tomcat8 service
+      service: 
+        name: tomcat8
+        state: started
+      when: deploy_info_variable.changed
+      # Only do this when the deployment of the new artifact block executes
+      tags:
+        - deploy
+
+
+    - name: Wait until ROOT.war is extracted to the ROOT directory
+      wait_for:
+      # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/wait_for_module.html
+        path: /usr/local/tomcat8/webapps/ROOT
+      tags:
+        - deploy
+
+
+    - name: Deploy web configuration file
+      template: 
+        src: templates/application.j2
+        # this has all the endpoint and user/password information for the servers in the stack
+        dest: /usr/local/tomcat8/webapps/ROOT/WEB-INF/classes/application.properties
+        # this is the traditional filename for this, on the webserver
+        force: yes
+      notify:
+        - Restart Tomcat
+        # handler is below
+      tags:
+        - deploy
+
+
+  handlers:
+    - name: Restart Tomcat
+      service:
+        name: tomcat8
+        state: restarted
+
+
+
+    
+
+
+
+    
+
+    
+
+
+
+
+    
+
