@@ -90,3 +90,168 @@
 2024-05-15 22:04:36,535 p=24705 u=ubuntu n=ansible | mc01                       : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 2024-05-15 22:04:36,536 p=24705 u=ubuntu n=ansible | rmq01                      : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 2024-05-15 22:04:36,536 p=24705 u=ubuntu n=ansible | web01                      : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-05-16 02:29:12,160 p=25502 u=ubuntu n=ansible | PLAY [Set up Mysql with accounts db and remote login credentials] ***********************************************
+2024-05-16 02:29:12,170 p=25502 u=ubuntu n=ansible | TASK [Installing Mysql service an dependencies] *****************************************************************
+2024-05-16 02:30:05,998 p=25502 u=ubuntu n=ansible | changed: [db01] => (item=mysql-server)
+2024-05-16 02:30:12,714 p=25502 u=ubuntu n=ansible | changed: [db01] => (item=mysql-client)
+2024-05-16 02:30:14,140 p=25502 u=ubuntu n=ansible | failed: [db01] (item=python-mysqldb) => {"ansible_loop_var": "item", "changed": false, "item": "python-mysqldb", "msg": "No package matching 'python-mysqldb' is available"}
+2024-05-16 02:30:19,925 p=25502 u=ubuntu n=ansible | changed: [db01] => (item=python3-mysqldb)
+2024-05-16 02:30:31,199 p=25502 u=ubuntu n=ansible | changed: [db01] => (item=libmysqlclient-dev)
+2024-05-16 02:30:31,204 p=25502 u=ubuntu n=ansible | ...ignoring
+2024-05-16 02:30:31,209 p=25502 u=ubuntu n=ansible | TASK [creating the mysql user] **********************************************************************************
+2024-05-16 02:30:32,198 p=25502 u=ubuntu n=ansible | [WARNING]: Option column_case_sensitive is not provided. The default is now false, so the column's name will be
+uppercased. The default will be changed to true in community.mysql 4.0.0.
+
+2024-05-16 02:30:32,198 p=25502 u=ubuntu n=ansible | changed: [db01]
+2024-05-16 02:30:32,203 p=25502 u=ubuntu n=ansible | TASK [Creating accounts DB] *************************************************************************************
+2024-05-16 02:30:32,712 p=25502 u=ubuntu n=ansible | changed: [db01]
+2024-05-16 02:30:32,716 p=25502 u=ubuntu n=ansible | TASK [Enable remote login to mysql service] *********************************************************************
+2024-05-16 02:30:33,208 p=25502 u=ubuntu n=ansible | changed: [db01]
+2024-05-16 02:30:33,213 p=25502 u=ubuntu n=ansible | RUNNING HANDLER [Restart mysql] *********************************************************************************
+2024-05-16 02:30:38,052 p=25502 u=ubuntu n=ansible | changed: [db01]
+2024-05-16 02:30:38,058 p=25502 u=ubuntu n=ansible | PLAY RECAP ******************************************************************************************************
+2024-05-16 02:30:38,058 p=25502 u=ubuntu n=ansible | db01                       : ok=5    changed=5    unreachable=0    failed=0    skipped=0    rescued=0    ignored=1   
+2024-05-16 02:36:59,467 p=25684 u=ubuntu n=ansible | PLAY [Deploy SQL file on the acounts db] ************************************************************************
+2024-05-16 02:36:59,477 p=25684 u=ubuntu n=ansible | TASK [Copy SQL file db_backup.sql to dbsrv group of servers (db01)] *********************************************
+2024-05-16 02:37:01,567 p=25684 u=ubuntu n=ansible | changed: [db01]
+2024-05-16 02:37:01,572 p=25684 u=ubuntu n=ansible | TASK [Restoring the DB] *****************************************************************************************
+2024-05-16 02:37:02,278 p=25684 u=ubuntu n=ansible | ERROR! The requested handler 'deploy' was not found in either the main handlers list nor in the listening handlers list
+2024-05-16 02:41:50,325 p=25740 u=ubuntu n=ansible | PLAY [Deploy SQL file on the acounts db] ************************************************************************
+2024-05-16 02:41:50,335 p=25740 u=ubuntu n=ansible | TASK [Copy SQL file db_backup.sql to dbsrv group of servers (db01)] *********************************************
+2024-05-16 02:41:51,905 p=25740 u=ubuntu n=ansible | ok: [db01]
+2024-05-16 02:41:51,910 p=25740 u=ubuntu n=ansible | TASK [Restoring the DB] *****************************************************************************************
+2024-05-16 02:41:52,635 p=25740 u=ubuntu n=ansible | changed: [db01]
+2024-05-16 02:41:52,640 p=25740 u=ubuntu n=ansible | RUNNING HANDLER [Restart mysql] *********************************************************************************
+2024-05-16 02:41:56,926 p=25740 u=ubuntu n=ansible | changed: [db01]
+2024-05-16 02:41:56,932 p=25740 u=ubuntu n=ansible | PLAY RECAP ******************************************************************************************************
+2024-05-16 02:41:56,933 p=25740 u=ubuntu n=ansible | db01                       : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-05-16 02:43:13,328 p=25784 u=ubuntu n=ansible | PLAY [Install Memcache, Start and enable the service] ***********************************************************
+2024-05-16 02:43:13,337 p=25784 u=ubuntu n=ansible | TASK [Install Memcache] *****************************************************************************************
+2024-05-16 02:43:41,835 p=25784 u=ubuntu n=ansible | changed: [mc01]
+2024-05-16 02:43:41,840 p=25784 u=ubuntu n=ansible | TASK [Start and Enable Memcache] ********************************************************************************
+2024-05-16 02:43:43,451 p=25784 u=ubuntu n=ansible | ok: [mc01]
+2024-05-16 02:43:43,457 p=25784 u=ubuntu n=ansible | TASK [Enable remote login to memcache] **************************************************************************
+2024-05-16 02:43:43,912 p=25784 u=ubuntu n=ansible | changed: [mc01]
+2024-05-16 02:43:43,918 p=25784 u=ubuntu n=ansible | RUNNING HANDLER [Restart memcached] *****************************************************************************
+2024-05-16 02:43:45,379 p=25784 u=ubuntu n=ansible | changed: [mc01]
+2024-05-16 02:43:45,384 p=25784 u=ubuntu n=ansible | PLAY RECAP ******************************************************************************************************
+2024-05-16 02:43:45,385 p=25784 u=ubuntu n=ansible | mc01                       : ok=4    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-05-16 02:45:30,966 p=25840 u=ubuntu n=ansible | ERROR! couldn't resolve module/action 'apt-key'. This often indicates a misspelling, missing collection, or incorrect module path.
+
+The error appears to be in '/home/ubuntu/Ansible_playbook_phase3_vprofile_stack_AWS2/provision-stack/rabbitmq.yml': line 16, column 7, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+
+    - name: Add an Erlang soluton public key
+      ^ here
+
+2024-05-16 02:48:42,954 p=25861 u=ubuntu n=ansible | PLAY [Install and Set up RabbitMQ with user] ********************************************************************
+2024-05-16 02:48:42,964 p=25861 u=ubuntu n=ansible | TASK [Install Erlang Repository Package] ************************************************************************
+2024-05-16 02:48:45,761 p=25861 u=ubuntu n=ansible | changed: [rmq01]
+2024-05-16 02:48:45,766 p=25861 u=ubuntu n=ansible | TASK [Add an Erlang soluton public key] *************************************************************************
+2024-05-16 02:48:46,537 p=25861 u=ubuntu n=ansible | ok: [rmq01]
+2024-05-16 02:48:46,541 p=25861 u=ubuntu n=ansible | TASK [Install Erlang] *******************************************************************************************
+2024-05-16 02:49:50,855 p=25861 u=ubuntu n=ansible | changed: [rmq01]
+2024-05-16 02:49:50,860 p=25861 u=ubuntu n=ansible | TASK [Add an Apt signing key, uses whichever key is at the URL] *************************************************
+2024-05-16 02:49:52,089 p=25861 u=ubuntu n=ansible | changed: [rmq01]
+2024-05-16 02:49:52,093 p=25861 u=ubuntu n=ansible | TASK [Add repository for rabbitmq] ******************************************************************************
+2024-05-16 02:50:31,532 p=25861 u=ubuntu n=ansible | fatal: [rmq01]: FAILED! => {"changed": false, "msg": "Failed to update apt cache: E:The repository 'https://dl.bintray.com/rabbitmq/debian bionic Release' does not have a Release file., W:Updating from such a repository can't be done securely, and is therefore disabled by default., W:See apt-secure(8) manpage for repository creation and user configuration details., W:http://binaries.erlang-solutions.com/debian/dists/squeeze/Release.gpg: Key is stored in legacy trusted.gpg keyring (/etc/apt/trusted.gpg), see the DEPRECATION section in apt-key(8) for details."}
+2024-05-16 02:50:31,533 p=25861 u=ubuntu n=ansible | PLAY RECAP ******************************************************************************************************
+2024-05-16 02:50:31,533 p=25861 u=ubuntu n=ansible | rmq01                      : ok=4    changed=3    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2024-05-16 03:29:11,766 p=26003 u=ubuntu n=ansible | ERROR! conflicting action statements: apt_repository, repo
+
+The error appears to be in '/home/ubuntu/Ansible_playbook_phase3_vprofile_stack_AWS2/provision-stack/rabbitmq.yml': line 58, column 7, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+
+    - name: Add RabbitMQ APT Repository
+      ^ here
+
+2024-05-16 03:30:55,884 p=26035 u=ubuntu n=ansible | PLAY [Install and Set up RabbitMQ with user] ********************************************************************
+2024-05-16 03:30:55,893 p=26035 u=ubuntu n=ansible | TASK [Install Erlang Repository Package] ************************************************************************
+2024-05-16 03:31:01,059 p=26035 u=ubuntu n=ansible | ok: [rmq01]
+2024-05-16 03:31:01,064 p=26035 u=ubuntu n=ansible | TASK [Add an Erlang soluton public key] *************************************************************************
+2024-05-16 03:31:02,095 p=26035 u=ubuntu n=ansible | ok: [rmq01]
+2024-05-16 03:31:02,097 p=26035 u=ubuntu n=ansible | TASK [Install Erlang] *******************************************************************************************
+2024-05-16 03:31:03,181 p=26035 u=ubuntu n=ansible | ok: [rmq01]
+2024-05-16 03:31:03,185 p=26035 u=ubuntu n=ansible | TASK [Add an Apt signing key, uses whichever key is at the URL] *************************************************
+2024-05-16 03:31:03,902 p=26035 u=ubuntu n=ansible | ok: [rmq01]
+2024-05-16 03:31:03,906 p=26035 u=ubuntu n=ansible | TASK [Add RabbitMQ APT Repository] ******************************************************************************
+2024-05-16 03:31:03,920 p=26035 u=ubuntu n=ansible | fatal: [rmq01]: FAILED! => {"msg": "The task includes an option with an undefined variable. The error was: 'ansible_distribution_release' is undefined. 'ansible_distribution_release' is undefined\n\nThe error appears to be in '/home/ubuntu/Ansible_playbook_phase3_vprofile_stack_AWS2/provision-stack/rabbitmq.yml': line 58, column 7, but may\nbe elsewhere in the file depending on the exact syntax problem.\n\nThe offending line appears to be:\n\n\n    - name: Add RabbitMQ APT Repository\n      ^ here\n"}
+2024-05-16 03:31:03,921 p=26035 u=ubuntu n=ansible | PLAY RECAP ******************************************************************************************************
+2024-05-16 03:31:03,921 p=26035 u=ubuntu n=ansible | rmq01                      : ok=4    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2024-05-16 03:40:35,418 p=26116 u=ubuntu n=ansible | ERROR! We were unable to read either as JSON nor YAML, these are the errors we got from each:
+JSON: Expecting value: line 1 column 1 (char 0)
+
+Syntax Error while loading YAML.
+  mapping values are not allowed in this context
+
+The error appears to be in '/home/ubuntu/Ansible_playbook_phase3_vprofile_stack_AWS2/provision-stack/rabbitmq.yml': line 48, column 30, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+    - name: Execute the command in remote shell; stdout goes to the specified file on the remote
+        ansible.builtin.shell:
+                             ^ here
+
+2024-05-16 03:45:29,078 p=26141 u=ubuntu n=ansible | ERROR! We were unable to read either as JSON nor YAML, these are the errors we got from each:
+JSON: Expecting value: line 1 column 1 (char 0)
+
+Syntax Error while loading YAML.
+  mapping values are not allowed in this context
+
+The error appears to be in '/home/ubuntu/Ansible_playbook_phase3_vprofile_stack_AWS2/provision-stack/rabbitmq.yml': line 71, column 30, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+    - name: Execute the command in remote shell; stdout goes to the specified file on the remote
+        ansible.builtin.shell:
+                             ^ here
+
+2024-05-16 03:47:22,876 p=26161 u=ubuntu n=ansible | PLAY [Install and Set up RabbitMQ with user] ********************************************************************
+2024-05-16 03:47:22,885 p=26161 u=ubuntu n=ansible | TASK [Install Erlang Repository Package] ************************************************************************
+2024-05-16 03:47:25,461 p=26161 u=ubuntu n=ansible | ok: [rmq01]
+2024-05-16 03:47:25,466 p=26161 u=ubuntu n=ansible | TASK [Add an Erlang soluton public key] *************************************************************************
+2024-05-16 03:47:26,227 p=26161 u=ubuntu n=ansible | ok: [rmq01]
+2024-05-16 03:47:26,230 p=26161 u=ubuntu n=ansible | TASK [Install Erlang] *******************************************************************************************
+2024-05-16 03:47:27,243 p=26161 u=ubuntu n=ansible | ok: [rmq01]
+2024-05-16 03:47:27,247 p=26161 u=ubuntu n=ansible | TASK [Add an Apt signing key, uses whichever key is at the URL] *************************************************
+2024-05-16 03:47:27,919 p=26161 u=ubuntu n=ansible | ok: [rmq01]
+2024-05-16 03:47:27,922 p=26161 u=ubuntu n=ansible | TASK [Execute the command in remote shell; stdout goes to the specified file on the remote] *********************
+2024-05-16 03:47:45,948 p=26161 u=ubuntu n=ansible | changed: [rmq01]
+2024-05-16 03:47:45,951 p=26161 u=ubuntu n=ansible | TASK [Install Rabbit MQ] ****************************************************************************************
+2024-05-16 03:47:46,452 p=26161 u=ubuntu n=ansible | fatal: [rmq01]: FAILED! => {"changed": false, "msg": "Unsupported parameters for (apt) module: tags. Supported parameters include: allow_change_held_packages, allow_downgrade, allow_unauthenticated, autoclean, autoremove, cache_valid_time, clean, deb, default_release, dpkg_options, fail_on_autoremove, force, force_apt_get, install_recommends, lock_timeout, only_upgrade, package, policy_rc_d, purge, state, update_cache, update_cache_retries, update_cache_retry_max_delay, upgrade (allow-downgrade, allow-downgrades, allow-unauthenticated, allow_downgrades, default-release, install-recommends, name, pkg, update-cache)."}
+2024-05-16 03:47:46,453 p=26161 u=ubuntu n=ansible | PLAY RECAP ******************************************************************************************************
+2024-05-16 03:47:46,453 p=26161 u=ubuntu n=ansible | rmq01                      : ok=5    changed=1    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2024-05-16 03:52:56,687 p=26239 u=ubuntu n=ansible | PLAY [Install and Set up RabbitMQ with user] ********************************************************************
+2024-05-16 03:52:56,697 p=26239 u=ubuntu n=ansible | TASK [Install Erlang Repository Package] ************************************************************************
+2024-05-16 03:52:59,762 p=26239 u=ubuntu n=ansible | ok: [rmq01]
+2024-05-16 03:52:59,767 p=26239 u=ubuntu n=ansible | TASK [Add an Erlang soluton public key] *************************************************************************
+2024-05-16 03:53:00,554 p=26239 u=ubuntu n=ansible | ok: [rmq01]
+2024-05-16 03:53:00,556 p=26239 u=ubuntu n=ansible | TASK [Install Erlang] *******************************************************************************************
+2024-05-16 03:53:01,626 p=26239 u=ubuntu n=ansible | ok: [rmq01]
+2024-05-16 03:53:01,630 p=26239 u=ubuntu n=ansible | TASK [Add an Apt signing key, uses whichever key is at the URL] *************************************************
+2024-05-16 03:53:02,363 p=26239 u=ubuntu n=ansible | ok: [rmq01]
+2024-05-16 03:53:02,366 p=26239 u=ubuntu n=ansible | TASK [Install Rabbit MQ] ****************************************************************************************
+2024-05-16 03:53:02,784 p=26239 u=ubuntu n=ansible | fatal: [rmq01]: FAILED! => {"changed": false, "msg": "Unsupported parameters for (apt) module: tags. Supported parameters include: allow_change_held_packages, allow_downgrade, allow_unauthenticated, autoclean, autoremove, cache_valid_time, clean, deb, default_release, dpkg_options, fail_on_autoremove, force, force_apt_get, install_recommends, lock_timeout, only_upgrade, package, policy_rc_d, purge, state, update_cache, update_cache_retries, update_cache_retry_max_delay, upgrade (allow-downgrade, allow-downgrades, allow-unauthenticated, allow_downgrades, default-release, install-recommends, name, pkg, update-cache)."}
+2024-05-16 03:53:02,786 p=26239 u=ubuntu n=ansible | PLAY RECAP ******************************************************************************************************
+2024-05-16 03:53:02,788 p=26239 u=ubuntu n=ansible | rmq01                      : ok=4    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2024-05-16 03:54:47,971 p=26306 u=ubuntu n=ansible | PLAY [Install and Set up RabbitMQ with user] ********************************************************************
+2024-05-16 03:54:47,981 p=26306 u=ubuntu n=ansible | TASK [Install Erlang Repository Package] ************************************************************************
+2024-05-16 03:54:50,229 p=26306 u=ubuntu n=ansible | ok: [rmq01]
+2024-05-16 03:54:50,234 p=26306 u=ubuntu n=ansible | TASK [Add an Erlang soluton public key] *************************************************************************
+2024-05-16 03:54:50,991 p=26306 u=ubuntu n=ansible | ok: [rmq01]
+2024-05-16 03:54:50,994 p=26306 u=ubuntu n=ansible | TASK [Install Erlang] *******************************************************************************************
+2024-05-16 03:54:52,034 p=26306 u=ubuntu n=ansible | ok: [rmq01]
+2024-05-16 03:54:52,039 p=26306 u=ubuntu n=ansible | TASK [Add an Apt signing key, uses whichever key is at the URL] *************************************************
+2024-05-16 03:54:52,715 p=26306 u=ubuntu n=ansible | ok: [rmq01]
+2024-05-16 03:54:52,719 p=26306 u=ubuntu n=ansible | TASK [Install Rabbit MQ] ****************************************************************************************
+2024-05-16 03:54:55,802 p=26306 u=ubuntu n=ansible | fatal: [rmq01]: FAILED! => {"cache_update_time": 1715831694, "cache_updated": true, "changed": false, "msg": "'/usr/bin/apt-get -y -o \"Dpkg::Options::=--force-confdef\" -o \"Dpkg::Options::=--force-confold\"       install 'rabbitmq-server=3.13.2-1'' failed: E: Unable to correct problems, you have held broken packages.\n", "rc": 100, "stderr": "E: Unable to correct problems, you have held broken packages.\n", "stderr_lines": ["E: Unable to correct problems, you have held broken packages."], "stdout": "Reading package lists...\nBuilding dependency tree...\nReading state information...\nSome packages could not be installed. This may mean that you have\nrequested an impossible situation or if you are using the unstable\ndistribution that some required packages have not yet been created\nor been moved out of Incoming.\nThe following information may help to resolve the situation:\n\nThe following packages have unmet dependencies:\n rabbitmq-server : Depends: erlang-base (>= 1:26.0) but 1:24.2.1+dfsg-1ubuntu0.1 is to be installed or\n                            erlang-base-hipe (>= 1:26.0) or\n                            esl-erlang (>= 1:26.0) but it is not going to be installed\n                   Depends: erlang-crypto (>= 1:26.0) or\n                            esl-erlang (>= 1:26.0) but it is not going to be installed\n                   Depends: erlang-eldap (>= 1:26.0) but 1:24.2.1+dfsg-1ubuntu0.1 is to be installed or\n                            esl-erlang (>= 1:26.0) but it is not going to be installed\n                   Depends: erlang-inets (>= 1:26.0) or\n                            esl-erlang (>= 1:26.0) but it is not going to be installed\n                   Depends: erlang-mnesia (>= 1:26.0) or\n                            esl-erlang (>= 1:26.0) but it is not going to be installed\n                   Depends: erlang-os-mon (>= 1:26.0) or\n                            esl-erlang (>= 1:26.0) but it is not going to be installed\n                   Depends: erlang-parsetools (>= 1:26.0) or\n                            esl-erlang (>= 1:26.0) but it is not going to be installed\n                   Depends: erlang-public-key (>= 1:26.0) or\n                            esl-erlang (>= 1:26.0) but it is not going to be installed\n                   Depends: erlang-runtime-tools (>= 1:26.0) or\n                            esl-erlang (>= 1:26.0) but it is not going to be installed\n                   Depends: erlang-ssl (>= 1:26.0) or\n                            esl-erlang (>= 1:26.0) but it is not going to be installed\n                   Depends: erlang-syntax-tools (>= 1:26.0) or\n                            esl-erlang (>= 1:26.0) but it is not going to be installed\n                   Depends: erlang-tools (>= 1:26.0) or\n                            esl-erlang (>= 1:26.0) but it is not going to be installed\n                   Depends: erlang-xmerl (>= 1:26.0) or\n                            esl-erlang (>= 1:26.0) but it is not going to be installed\n", "stdout_lines": ["Reading package lists...", "Building dependency tree...", "Reading state information...", "Some packages could not be installed. This may mean that you have", "requested an impossible situation or if you are using the unstable", "distribution that some required packages have not yet been created", "or been moved out of Incoming.", "The following information may help to resolve the situation:", "", "The following packages have unmet dependencies:", " rabbitmq-server : Depends: erlang-base (>= 1:26.0) but 1:24.2.1+dfsg-1ubuntu0.1 is to be installed or", "                            erlang-base-hipe (>= 1:26.0) or", "                            esl-erlang (>= 1:26.0) but it is not going to be installed", "                   Depends: erlang-crypto (>= 1:26.0) or", "                            esl-erlang (>= 1:26.0) but it is not going to be installed", "                   Depends: erlang-eldap (>= 1:26.0) but 1:24.2.1+dfsg-1ubuntu0.1 is to be installed or", "                            esl-erlang (>= 1:26.0) but it is not going to be installed", "                   Depends: erlang-inets (>= 1:26.0) or", "                            esl-erlang (>= 1:26.0) but it is not going to be installed", "                   Depends: erlang-mnesia (>= 1:26.0) or", "                            esl-erlang (>= 1:26.0) but it is not going to be installed", "                   Depends: erlang-os-mon (>= 1:26.0) or", "                            esl-erlang (>= 1:26.0) but it is not going to be installed", "                   Depends: erlang-parsetools (>= 1:26.0) or", "                            esl-erlang (>= 1:26.0) but it is not going to be installed", "                   Depends: erlang-public-key (>= 1:26.0) or", "                            esl-erlang (>= 1:26.0) but it is not going to be installed", "                   Depends: erlang-runtime-tools (>= 1:26.0) or", "                            esl-erlang (>= 1:26.0) but it is not going to be installed", "                   Depends: erlang-ssl (>= 1:26.0) or", "                            esl-erlang (>= 1:26.0) but it is not going to be installed", "                   Depends: erlang-syntax-tools (>= 1:26.0) or", "                            esl-erlang (>= 1:26.0) but it is not going to be installed", "                   Depends: erlang-tools (>= 1:26.0) or", "                            esl-erlang (>= 1:26.0) but it is not going to be installed", "                   Depends: erlang-xmerl (>= 1:26.0) or", "                            esl-erlang (>= 1:26.0) but it is not going to be installed"]}
+2024-05-16 03:54:55,805 p=26306 u=ubuntu n=ansible | PLAY RECAP ******************************************************************************************************
+2024-05-16 03:54:55,806 p=26306 u=ubuntu n=ansible | rmq01                      : ok=4    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
