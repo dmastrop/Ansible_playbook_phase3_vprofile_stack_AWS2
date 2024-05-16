@@ -36,7 +36,7 @@
     - name: Deploy web config file
       template:
         src: templates/nginxvpro.j2
-        dest: /etc/nginx/sites-avaiable/vproapp
+        dest: /etc/nginx/sites-available/vproapp
         # this is the file that will replace the default that was removed above. vproapp is the new name
         # of this default nginx config file.
       tags:
