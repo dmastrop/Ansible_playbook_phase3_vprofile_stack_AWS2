@@ -52,7 +52,7 @@
 
 
 
-    # - name: Add repository for rabbitmq
+    # - name: Add repository for rabbitmq ORIGINAL
     #   apt_repository:
     #   # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_repository_module.html
     #     repo: deb https://dl.bintray.com/rabbitmq/debian bionic main
@@ -67,9 +67,6 @@
     #     state: present
 
 
-    - name: Execute the command in remote shell; stdout goes to the specified file on the remote
-        ansible.builtin.shell: 
-          curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.deb.sh | sudo bash
 
 
 
