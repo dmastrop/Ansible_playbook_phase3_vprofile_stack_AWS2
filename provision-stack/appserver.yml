@@ -52,7 +52,7 @@
     - name: Extract tomcat
       unarchive:
       # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/unarchive_module.html
-        src: /tmp/tomcat-8.tar.tz
+        src: /tmp/tomcat-8.tar.gz
         dest: /tmp/tomcat8/
         remote_src: yes
         list_files: yes
