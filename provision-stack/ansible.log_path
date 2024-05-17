@@ -516,3 +516,12 @@ The offending line appears to be:
 2024-05-16 22:46:02,049 p=32306 u=ubuntu n=ansible | changed: [web01]
 2024-05-16 22:46:02,054 p=32306 u=ubuntu n=ansible | PLAY RECAP ******************************************************************************************************
 2024-05-16 22:46:02,055 p=32306 u=ubuntu n=ansible | web01                      : ok=6    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-05-16 19:34:23,670 p=13116 u=davemastropolo n=ansible | [DEPRECATION WARNING]: Ansible will require Python 3.8 or newer on the controller starting with Ansible 2.12. 
+Current version: 3.7.9 (v3.7.9:13c94747c7, Aug 15 2020, 01:31:08) [Clang 6.0 (clang-600.0.57)]. This feature 
+will be removed from ansible-core in version 2.12. Deprecation warnings can be disabled by setting 
+deprecation_warnings=False in ansible.cfg.
+2024-05-16 19:34:25,508 p=13116 u=davemastropolo n=ansible | PLAY [Generate the artifact, copy the artifact and sql file to files directory] *********************************
+2024-05-16 19:34:25,547 p=13116 u=davemastropolo n=ansible | TASK [Gathering Facts] ******************************************************************************************
+2024-05-16 19:34:26,398 p=13116 u=davemastropolo n=ansible | fatal: [localhost]: FAILED! => {"ansible_facts": {}, "changed": false, "failed_modules": {"ansible.legacy.setup": {"failed": true, "module_stderr": "sudo: a password is required\n", "module_stdout": "", "msg": "MODULE FAILURE\nSee stdout/stderr for the exact error", "rc": 1}}, "msg": "The following modules failed to execute: ansible.legacy.setup\n"}
+2024-05-16 19:34:26,401 p=13116 u=davemastropolo n=ansible | PLAY RECAP ******************************************************************************************************
+2024-05-16 19:34:26,401 p=13116 u=davemastropolo n=ansible | localhost                  : ok=0    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
