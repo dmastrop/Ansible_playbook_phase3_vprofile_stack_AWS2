@@ -255,3 +255,264 @@ The offending line appears to be:
 2024-05-16 03:54:55,802 p=26306 u=ubuntu n=ansible | fatal: [rmq01]: FAILED! => {"cache_update_time": 1715831694, "cache_updated": true, "changed": false, "msg": "'/usr/bin/apt-get -y -o \"Dpkg::Options::=--force-confdef\" -o \"Dpkg::Options::=--force-confold\"       install 'rabbitmq-server=3.13.2-1'' failed: E: Unable to correct problems, you have held broken packages.\n", "rc": 100, "stderr": "E: Unable to correct problems, you have held broken packages.\n", "stderr_lines": ["E: Unable to correct problems, you have held broken packages."], "stdout": "Reading package lists...\nBuilding dependency tree...\nReading state information...\nSome packages could not be installed. This may mean that you have\nrequested an impossible situation or if you are using the unstable\ndistribution that some required packages have not yet been created\nor been moved out of Incoming.\nThe following information may help to resolve the situation:\n\nThe following packages have unmet dependencies:\n rabbitmq-server : Depends: erlang-base (>= 1:26.0) but 1:24.2.1+dfsg-1ubuntu0.1 is to be installed or\n                            erlang-base-hipe (>= 1:26.0) or\n                            esl-erlang (>= 1:26.0) but it is not going to be installed\n                   Depends: erlang-crypto (>= 1:26.0) or\n                            esl-erlang (>= 1:26.0) but it is not going to be installed\n                   Depends: erlang-eldap (>= 1:26.0) but 1:24.2.1+dfsg-1ubuntu0.1 is to be installed or\n                            esl-erlang (>= 1:26.0) but it is not going to be installed\n                   Depends: erlang-inets (>= 1:26.0) or\n                            esl-erlang (>= 1:26.0) but it is not going to be installed\n                   Depends: erlang-mnesia (>= 1:26.0) or\n                            esl-erlang (>= 1:26.0) but it is not going to be installed\n                   Depends: erlang-os-mon (>= 1:26.0) or\n                            esl-erlang (>= 1:26.0) but it is not going to be installed\n                   Depends: erlang-parsetools (>= 1:26.0) or\n                            esl-erlang (>= 1:26.0) but it is not going to be installed\n                   Depends: erlang-public-key (>= 1:26.0) or\n                            esl-erlang (>= 1:26.0) but it is not going to be installed\n                   Depends: erlang-runtime-tools (>= 1:26.0) or\n                            esl-erlang (>= 1:26.0) but it is not going to be installed\n                   Depends: erlang-ssl (>= 1:26.0) or\n                            esl-erlang (>= 1:26.0) but it is not going to be installed\n                   Depends: erlang-syntax-tools (>= 1:26.0) or\n                            esl-erlang (>= 1:26.0) but it is not going to be installed\n                   Depends: erlang-tools (>= 1:26.0) or\n                            esl-erlang (>= 1:26.0) but it is not going to be installed\n                   Depends: erlang-xmerl (>= 1:26.0) or\n                            esl-erlang (>= 1:26.0) but it is not going to be installed\n", "stdout_lines": ["Reading package lists...", "Building dependency tree...", "Reading state information...", "Some packages could not be installed. This may mean that you have", "requested an impossible situation or if you are using the unstable", "distribution that some required packages have not yet been created", "or been moved out of Incoming.", "The following information may help to resolve the situation:", "", "The following packages have unmet dependencies:", " rabbitmq-server : Depends: erlang-base (>= 1:26.0) but 1:24.2.1+dfsg-1ubuntu0.1 is to be installed or", "                            erlang-base-hipe (>= 1:26.0) or", "                            esl-erlang (>= 1:26.0) but it is not going to be installed", "                   Depends: erlang-crypto (>= 1:26.0) or", "                            esl-erlang (>= 1:26.0) but it is not going to be installed", "                   Depends: erlang-eldap (>= 1:26.0) but 1:24.2.1+dfsg-1ubuntu0.1 is to be installed or", "                            esl-erlang (>= 1:26.0) but it is not going to be installed", "                   Depends: erlang-inets (>= 1:26.0) or", "                            esl-erlang (>= 1:26.0) but it is not going to be installed", "                   Depends: erlang-mnesia (>= 1:26.0) or", "                            esl-erlang (>= 1:26.0) but it is not going to be installed", "                   Depends: erlang-os-mon (>= 1:26.0) or", "                            esl-erlang (>= 1:26.0) but it is not going to be installed", "                   Depends: erlang-parsetools (>= 1:26.0) or", "                            esl-erlang (>= 1:26.0) but it is not going to be installed", "                   Depends: erlang-public-key (>= 1:26.0) or", "                            esl-erlang (>= 1:26.0) but it is not going to be installed", "                   Depends: erlang-runtime-tools (>= 1:26.0) or", "                            esl-erlang (>= 1:26.0) but it is not going to be installed", "                   Depends: erlang-ssl (>= 1:26.0) or", "                            esl-erlang (>= 1:26.0) but it is not going to be installed", "                   Depends: erlang-syntax-tools (>= 1:26.0) or", "                            esl-erlang (>= 1:26.0) but it is not going to be installed", "                   Depends: erlang-tools (>= 1:26.0) or", "                            esl-erlang (>= 1:26.0) but it is not going to be installed", "                   Depends: erlang-xmerl (>= 1:26.0) or", "                            esl-erlang (>= 1:26.0) but it is not going to be installed"]}
 2024-05-16 03:54:55,805 p=26306 u=ubuntu n=ansible | PLAY RECAP ******************************************************************************************************
 2024-05-16 03:54:55,806 p=26306 u=ubuntu n=ansible | rmq01                      : ok=4    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2024-05-16 21:46:18,575 p=29490 u=ubuntu n=ansible | PLAY [Generate the artifact, copy the artifact and sql file to files directory] *********************************
+2024-05-16 21:46:18,583 p=29490 u=ubuntu n=ansible | TASK [Gathering Facts] ******************************************************************************************
+2024-05-16 21:46:19,903 p=29490 u=ubuntu n=ansible | ok: [localhost]
+2024-05-16 21:46:19,923 p=29490 u=ubuntu n=ansible | TASK [Install jdk, maven and git] *******************************************************************************
+2024-05-16 21:46:27,694 p=29490 u=ubuntu n=ansible | ok: [localhost] => (item=git)
+2024-05-16 21:46:30,224 p=29490 u=ubuntu n=ansible | ok: [localhost] => (item=openjdk-8-jdk)
+2024-05-16 21:46:32,720 p=29490 u=ubuntu n=ansible | ok: [localhost] => (item=maven)
+2024-05-16 21:46:32,732 p=29490 u=ubuntu n=ansible | TASK [Clone the source code from github devopshydclub vprofile-project, branch vp-rem] **************************
+2024-05-16 21:46:33,731 p=29490 u=ubuntu n=ansible | ok: [localhost]
+2024-05-16 21:46:33,739 p=29490 u=ubuntu n=ansible | TASK [mvn install command to build artifact] ********************************************************************
+2024-05-16 21:46:33,752 p=29490 u=ubuntu n=ansible | skipping: [localhost]
+2024-05-16 21:46:33,768 p=29490 u=ubuntu n=ansible | TASK [Copy artifacts to files directory] ************************************************************************
+2024-05-16 21:46:35,563 p=29490 u=ubuntu n=ansible | ok: [localhost] => (item=/home/ubuntu/Ansible_playbook_phase3_vprofile_stack_AWS2/provision-stack/Vprofile-repo/target/vprofile-v2.war)
+2024-05-16 21:46:35,573 p=29490 u=ubuntu n=ansible | TASK [Copy SQL file to files directory as well] *****************************************************************
+2024-05-16 21:46:36,031 p=29490 u=ubuntu n=ansible | ok: [localhost]
+2024-05-16 21:46:36,052 p=29490 u=ubuntu n=ansible | PLAY RECAP ******************************************************************************************************
+2024-05-16 21:46:36,052 p=29490 u=ubuntu n=ansible | localhost                  : ok=5    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+2024-05-16 21:46:46,842 p=31003 u=ubuntu n=ansible | PLAY [St the host to ip mapping in /etc/hosts file of all the instances in the stack] ***************************
+2024-05-16 21:46:46,851 p=31003 u=ubuntu n=ansible | TASK [Gathering Facts] ******************************************************************************************
+2024-05-16 21:46:49,114 p=31003 u=ubuntu n=ansible | ok: [cntl]
+2024-05-16 21:46:49,863 p=31003 u=ubuntu n=ansible | ok: [mc01]
+2024-05-16 21:46:49,965 p=31003 u=ubuntu n=ansible | ok: [web01]
+2024-05-16 21:46:49,969 p=31003 u=ubuntu n=ansible | ok: [app01]
+2024-05-16 21:46:50,006 p=31003 u=ubuntu n=ansible | ok: [rmq01]
+2024-05-16 21:46:52,300 p=31003 u=ubuntu n=ansible | ok: [db01]
+2024-05-16 21:46:52,364 p=31003 u=ubuntu n=ansible | TASK [Import the VPC setup Variables group_vars/hostsip file] ***************************************************
+2024-05-16 21:46:52,414 p=31003 u=ubuntu n=ansible | ok: [cntl]
+2024-05-16 21:46:52,433 p=31003 u=ubuntu n=ansible | ok: [web01]
+2024-05-16 21:46:52,462 p=31003 u=ubuntu n=ansible | ok: [app01]
+2024-05-16 21:46:52,482 p=31003 u=ubuntu n=ansible | ok: [rmq01]
+2024-05-16 21:46:52,486 p=31003 u=ubuntu n=ansible | ok: [mc01]
+2024-05-16 21:46:52,494 p=31003 u=ubuntu n=ansible | ok: [db01]
+2024-05-16 21:46:52,504 p=31003 u=ubuntu n=ansible | TASK [Update the hosts file for all the hosts.] *****************************************************************
+2024-05-16 21:46:53,382 p=31003 u=ubuntu n=ansible | changed: [app01]
+2024-05-16 21:46:53,386 p=31003 u=ubuntu n=ansible | changed: [rmq01]
+2024-05-16 21:46:53,386 p=31003 u=ubuntu n=ansible | changed: [web01]
+2024-05-16 21:46:53,387 p=31003 u=ubuntu n=ansible | changed: [mc01]
+2024-05-16 21:46:53,435 p=31003 u=ubuntu n=ansible | changed: [cntl]
+2024-05-16 21:46:53,928 p=31003 u=ubuntu n=ansible | changed: [db01]
+2024-05-16 21:46:54,059 p=31003 u=ubuntu n=ansible | PLAY RECAP ******************************************************************************************************
+2024-05-16 21:46:54,059 p=31003 u=ubuntu n=ansible | app01                      : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-05-16 21:46:54,059 p=31003 u=ubuntu n=ansible | cntl                       : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-05-16 21:46:54,059 p=31003 u=ubuntu n=ansible | db01                       : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-05-16 21:46:54,060 p=31003 u=ubuntu n=ansible | mc01                       : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-05-16 21:46:54,060 p=31003 u=ubuntu n=ansible | rmq01                      : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-05-16 21:46:54,060 p=31003 u=ubuntu n=ansible | web01                      : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-05-16 21:48:20,869 p=31255 u=ubuntu n=ansible | PLAY [Set up Mysql with accounts db and remote login credentials] ***********************************************
+2024-05-16 21:48:20,879 p=31255 u=ubuntu n=ansible | TASK [Installing Mysql service an dependencies] *****************************************************************
+2024-05-16 21:49:13,671 p=31255 u=ubuntu n=ansible | changed: [db01] => (item=mysql-server)
+2024-05-16 21:49:19,776 p=31255 u=ubuntu n=ansible | changed: [db01] => (item=mysql-client)
+2024-05-16 21:49:21,214 p=31255 u=ubuntu n=ansible | failed: [db01] (item=python-mysqldb) => {"ansible_loop_var": "item", "changed": false, "item": "python-mysqldb", "msg": "No package matching 'python-mysqldb' is available"}
+2024-05-16 21:49:27,034 p=31255 u=ubuntu n=ansible | changed: [db01] => (item=python3-mysqldb)
+2024-05-16 21:49:39,765 p=31255 u=ubuntu n=ansible | changed: [db01] => (item=libmysqlclient-dev)
+2024-05-16 21:49:39,771 p=31255 u=ubuntu n=ansible | ...ignoring
+2024-05-16 21:49:39,776 p=31255 u=ubuntu n=ansible | TASK [creating the mysql user] **********************************************************************************
+2024-05-16 21:49:40,742 p=31255 u=ubuntu n=ansible | [WARNING]: Option column_case_sensitive is not provided. The default is now false, so the column's name will be
+uppercased. The default will be changed to true in community.mysql 4.0.0.
+
+2024-05-16 21:49:40,742 p=31255 u=ubuntu n=ansible | changed: [db01]
+2024-05-16 21:49:40,747 p=31255 u=ubuntu n=ansible | TASK [Creating accounts DB] *************************************************************************************
+2024-05-16 21:49:41,265 p=31255 u=ubuntu n=ansible | changed: [db01]
+2024-05-16 21:49:41,270 p=31255 u=ubuntu n=ansible | TASK [Enable remote login to mysql service] *********************************************************************
+2024-05-16 21:49:41,748 p=31255 u=ubuntu n=ansible | changed: [db01]
+2024-05-16 21:49:41,754 p=31255 u=ubuntu n=ansible | RUNNING HANDLER [Restart mysql] *********************************************************************************
+2024-05-16 21:49:45,367 p=31255 u=ubuntu n=ansible | changed: [db01]
+2024-05-16 21:49:45,373 p=31255 u=ubuntu n=ansible | PLAY RECAP ******************************************************************************************************
+2024-05-16 21:49:45,373 p=31255 u=ubuntu n=ansible | db01                       : ok=5    changed=5    unreachable=0    failed=0    skipped=0    rescued=0    ignored=1   
+2024-05-16 21:50:36,298 p=31362 u=ubuntu n=ansible | PLAY [Deploy SQL file on the acounts db] ************************************************************************
+2024-05-16 21:50:36,308 p=31362 u=ubuntu n=ansible | TASK [Copy SQL file db_backup.sql to dbsrv group of servers (db01)] *********************************************
+2024-05-16 21:50:37,245 p=31362 u=ubuntu n=ansible | changed: [db01]
+2024-05-16 21:50:37,250 p=31362 u=ubuntu n=ansible | TASK [Restoring the DB] *****************************************************************************************
+2024-05-16 21:50:37,984 p=31362 u=ubuntu n=ansible | changed: [db01]
+2024-05-16 21:50:37,991 p=31362 u=ubuntu n=ansible | RUNNING HANDLER [Restart mysql] *********************************************************************************
+2024-05-16 21:50:41,881 p=31362 u=ubuntu n=ansible | changed: [db01]
+2024-05-16 21:50:41,888 p=31362 u=ubuntu n=ansible | PLAY RECAP ******************************************************************************************************
+2024-05-16 21:50:41,888 p=31362 u=ubuntu n=ansible | db01                       : ok=3    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-05-16 21:50:54,444 p=31404 u=ubuntu n=ansible | PLAY [Install Memcache, Start and enable the service] ***********************************************************
+2024-05-16 21:50:54,453 p=31404 u=ubuntu n=ansible | TASK [Install Memcache] *****************************************************************************************
+2024-05-16 21:51:15,101 p=31404 u=ubuntu n=ansible | changed: [mc01]
+2024-05-16 21:51:15,106 p=31404 u=ubuntu n=ansible | TASK [Start and Enable Memcache] ********************************************************************************
+2024-05-16 21:51:16,670 p=31404 u=ubuntu n=ansible | ok: [mc01]
+2024-05-16 21:51:16,674 p=31404 u=ubuntu n=ansible | TASK [Enable remote login to memcache] **************************************************************************
+2024-05-16 21:51:17,140 p=31404 u=ubuntu n=ansible | changed: [mc01]
+2024-05-16 21:51:17,144 p=31404 u=ubuntu n=ansible | RUNNING HANDLER [Restart memcached] *****************************************************************************
+2024-05-16 21:51:19,437 p=31404 u=ubuntu n=ansible | changed: [mc01]
+2024-05-16 21:51:19,443 p=31404 u=ubuntu n=ansible | PLAY RECAP ******************************************************************************************************
+2024-05-16 21:51:19,443 p=31404 u=ubuntu n=ansible | mc01                       : ok=4    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-05-16 21:51:42,321 p=31457 u=ubuntu n=ansible | PLAY [Install and Set up RabbitMQ with user] ********************************************************************
+2024-05-16 21:51:42,331 p=31457 u=ubuntu n=ansible | TASK [Copy over the installaton shell script from files/rabbitmq-shell-install-script.sh] ***********************
+2024-05-16 21:51:44,122 p=31457 u=ubuntu n=ansible | changed: [rmq01]
+2024-05-16 21:51:44,127 p=31457 u=ubuntu n=ansible | TASK [execute the shell installation script] ********************************************************************
+2024-05-16 21:52:21,860 p=31457 u=ubuntu n=ansible | changed: [rmq01]
+2024-05-16 21:52:21,865 p=31457 u=ubuntu n=ansible | TASK [Start and enable RMQ service] *****************************************************************************
+2024-05-16 21:52:23,483 p=31457 u=ubuntu n=ansible | ok: [rmq01]
+2024-05-16 21:52:23,488 p=31457 u=ubuntu n=ansible | TASK [Config setup] *********************************************************************************************
+2024-05-16 21:52:24,084 p=31457 u=ubuntu n=ansible | changed: [rmq01]
+2024-05-16 21:52:24,088 p=31457 u=ubuntu n=ansible | TASK [Configure the rabbitmq username and password] *************************************************************
+2024-05-16 21:52:31,565 p=31457 u=ubuntu n=ansible | changed: [rmq01]
+2024-05-16 21:52:31,569 p=31457 u=ubuntu n=ansible | TASK [Enables the rabbitmq_management plugin] *******************************************************************
+2024-05-16 21:52:38,187 p=31457 u=ubuntu n=ansible | changed: [rmq01]
+2024-05-16 21:52:38,191 p=31457 u=ubuntu n=ansible | RUNNING HANDLER [Restart RMQ] ***********************************************************************************
+2024-05-16 21:52:48,043 p=31457 u=ubuntu n=ansible | changed: [rmq01]
+2024-05-16 21:52:48,049 p=31457 u=ubuntu n=ansible | PLAY RECAP ******************************************************************************************************
+2024-05-16 21:52:48,049 p=31457 u=ubuntu n=ansible | rmq01                      : ok=7    changed=6    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-05-16 21:59:27,277 p=31563 u=ubuntu n=ansible | ERROR! conflicting action statements: file, path
+
+The error appears to be in '/home/ubuntu/Ansible_playbook_phase3_vprofile_stack_AWS2/provision-stack/appserver.yml': line 45, column 7, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+
+    - name: Create directory /tmp/tomcat8
+      ^ here
+
+2024-05-16 22:04:56,054 p=31596 u=ubuntu n=ansible | PLAY [Set up Tomcat8 & Deploy Artifact] *************************************************************************
+2024-05-16 22:04:56,063 p=31596 u=ubuntu n=ansible | TASK [Gathering Facts] ******************************************************************************************
+2024-05-16 22:04:58,059 p=31596 u=ubuntu n=ansible | ok: [app01]
+2024-05-16 22:04:58,077 p=31596 u=ubuntu n=ansible | TASK [Install JDK on Ubuntu 18/20] ******************************************************************************
+2024-05-16 22:05:47,512 p=31596 u=ubuntu n=ansible | changed: [app01]
+2024-05-16 22:05:47,521 p=31596 u=ubuntu n=ansible | TASK [Download Tomcat Tar Ball/Binaries] ************************************************************************
+2024-05-16 22:05:50,377 p=31596 u=ubuntu n=ansible | changed: [app01]
+2024-05-16 22:05:50,385 p=31596 u=ubuntu n=ansible | TASK [Add tomcat group] *****************************************************************************************
+2024-05-16 22:05:50,835 p=31596 u=ubuntu n=ansible | changed: [app01]
+2024-05-16 22:05:50,843 p=31596 u=ubuntu n=ansible | TASK [Add tomcat user] ******************************************************************************************
+2024-05-16 22:05:51,433 p=31596 u=ubuntu n=ansible | changed: [app01]
+2024-05-16 22:05:51,441 p=31596 u=ubuntu n=ansible | TASK [Create directory /tmp/tomcat8] ****************************************************************************
+2024-05-16 22:05:51,871 p=31596 u=ubuntu n=ansible | changed: [app01]
+2024-05-16 22:05:51,878 p=31596 u=ubuntu n=ansible | TASK [Extract tomcat] *******************************************************************************************
+2024-05-16 22:05:52,844 p=31596 u=ubuntu n=ansible | fatal: [app01]: FAILED! => {"changed": false, "msg": "Source '/tmp/tomcat-8.tar.tz' does not exist"}
+2024-05-16 22:05:52,845 p=31596 u=ubuntu n=ansible | PLAY RECAP ******************************************************************************************************
+2024-05-16 22:05:52,845 p=31596 u=ubuntu n=ansible | app01                      : ok=6    changed=5    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2024-05-16 22:09:18,203 p=31691 u=ubuntu n=ansible | PLAY [Set up Tomcat8 & Deploy Artifact] *************************************************************************
+2024-05-16 22:09:18,211 p=31691 u=ubuntu n=ansible | TASK [Gathering Facts] ******************************************************************************************
+2024-05-16 22:09:20,239 p=31691 u=ubuntu n=ansible | ok: [app01]
+2024-05-16 22:09:20,257 p=31691 u=ubuntu n=ansible | TASK [Install JDK on Ubuntu 18/20] ******************************************************************************
+2024-05-16 22:09:22,771 p=31691 u=ubuntu n=ansible | ok: [app01]
+2024-05-16 22:09:22,777 p=31691 u=ubuntu n=ansible | TASK [Download Tomcat Tar Ball/Binaries] ************************************************************************
+2024-05-16 22:09:23,631 p=31691 u=ubuntu n=ansible | ok: [app01]
+2024-05-16 22:09:23,638 p=31691 u=ubuntu n=ansible | TASK [Add tomcat group] *****************************************************************************************
+2024-05-16 22:09:24,063 p=31691 u=ubuntu n=ansible | ok: [app01]
+2024-05-16 22:09:24,069 p=31691 u=ubuntu n=ansible | TASK [Add tomcat user] ******************************************************************************************
+2024-05-16 22:09:24,619 p=31691 u=ubuntu n=ansible | ok: [app01]
+2024-05-16 22:09:24,625 p=31691 u=ubuntu n=ansible | TASK [Create directory /tmp/tomcat8] ****************************************************************************
+2024-05-16 22:09:25,059 p=31691 u=ubuntu n=ansible | ok: [app01]
+2024-05-16 22:09:25,067 p=31691 u=ubuntu n=ansible | TASK [Extract tomcat] *******************************************************************************************
+2024-05-16 22:09:26,469 p=31691 u=ubuntu n=ansible | changed: [app01]
+2024-05-16 22:09:26,481 p=31691 u=ubuntu n=ansible | TASK [debug] ****************************************************************************************************
+2024-05-16 22:09:26,501 p=31691 u=ubuntu n=ansible | ok: [app01] => {
+    "msg": "apache-tomcat-8.5.37"
+}
+2024-05-16 22:09:26,516 p=31691 u=ubuntu n=ansible | TASK [Synchronize /tmp/tomcat8/tomcat_cont /usr/local/tomcat8.] *************************************************
+2024-05-16 22:09:27,247 p=31691 u=ubuntu n=ansible | changed: [app01]
+2024-05-16 22:09:27,256 p=31691 u=ubuntu n=ansible | TASK [Change the ownership of the /usr/local/tomcat8 directory] *************************************************
+2024-05-16 22:09:27,637 p=31691 u=ubuntu n=ansible | changed: [app01]
+2024-05-16 22:09:27,645 p=31691 u=ubuntu n=ansible | TASK [Set up tomcat SVC file on ubuntu 16 and 18] ***************************************************************
+2024-05-16 22:09:28,369 p=31691 u=ubuntu n=ansible | changed: [app01]
+2024-05-16 22:09:28,378 p=31691 u=ubuntu n=ansible | TASK [for the systemd to reload and re-read the configs (2.4 and above)] ****************************************
+2024-05-16 22:09:29,479 p=31691 u=ubuntu n=ansible | ok: [app01]
+2024-05-16 22:09:29,488 p=31691 u=ubuntu n=ansible | TASK [Start & Enable tomcat Service] ****************************************************************************
+2024-05-16 22:09:30,358 p=31691 u=ubuntu n=ansible | changed: [app01]
+2024-05-16 22:09:30,367 p=31691 u=ubuntu n=ansible | TASK [Get the stats on the current ROOT artifact file if it is present.] ****************************************
+2024-05-16 22:09:30,881 p=31691 u=ubuntu n=ansible | ok: [app01]
+2024-05-16 22:09:30,889 p=31691 u=ubuntu n=ansible | TASK [Stop the tomcat8 service] *********************************************************************************
+2024-05-16 22:09:32,476 p=31691 u=ubuntu n=ansible | changed: [app01]
+2024-05-16 22:09:32,484 p=31691 u=ubuntu n=ansible | TASK [Archive the ROOT directory with timetamp above.] **********************************************************
+2024-05-16 22:09:32,940 p=31691 u=ubuntu n=ansible | changed: [app01]
+2024-05-16 22:09:32,950 p=31691 u=ubuntu n=ansible | TASK [copy ROOT dir with old_ROOT name] *************************************************************************
+2024-05-16 22:09:33,375 p=31691 u=ubuntu n=ansible | changed: [app01]
+2024-05-16 22:09:33,383 p=31691 u=ubuntu n=ansible | TASK [Delete current artifact] **********************************************************************************
+2024-05-16 22:09:33,725 p=31691 u=ubuntu n=ansible | changed: [app01] => (item=/usr/local/tomcat8/webapps/ROOT)
+2024-05-16 22:09:34,028 p=31691 u=ubuntu n=ansible | ok: [app01] => (item=/usr/local/tomcat8/webapps/ROOT.war)
+2024-05-16 22:09:34,041 p=31691 u=ubuntu n=ansible | TASK [Deploy nwe vprofile artifact] *****************************************************************************
+2024-05-16 22:09:37,075 p=31691 u=ubuntu n=ansible | changed: [app01]
+2024-05-16 22:09:37,083 p=31691 u=ubuntu n=ansible | TASK [Start tomcat8 service] ************************************************************************************
+2024-05-16 22:09:37,619 p=31691 u=ubuntu n=ansible | changed: [app01]
+2024-05-16 22:09:37,628 p=31691 u=ubuntu n=ansible | TASK [Wait until ROOT.war is extracted to the ROOT directory] ***************************************************
+2024-05-16 22:09:40,272 p=31691 u=ubuntu n=ansible | ok: [app01]
+2024-05-16 22:09:40,280 p=31691 u=ubuntu n=ansible | TASK [Deploy web configuration file] ****************************************************************************
+2024-05-16 22:09:41,358 p=31691 u=ubuntu n=ansible | changed: [app01]
+2024-05-16 22:09:41,374 p=31691 u=ubuntu n=ansible | RUNNING HANDLER [Restart Tomcat] ********************************************************************************
+2024-05-16 22:09:43,359 p=31691 u=ubuntu n=ansible | changed: [app01]
+2024-05-16 22:09:43,373 p=31691 u=ubuntu n=ansible | PLAY RECAP ******************************************************************************************************
+2024-05-16 22:09:43,373 p=31691 u=ubuntu n=ansible | app01                      : ok=23   changed=13   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-05-16 22:14:18,019 p=31915 u=ubuntu n=ansible | PLAY [Set up Nginx service] *************************************************************************************
+2024-05-16 22:14:18,028 p=31915 u=ubuntu n=ansible | TASK [Install nginx] ********************************************************************************************
+2024-05-16 22:14:45,490 p=31915 u=ubuntu n=ansible | changed: [web01]
+2024-05-16 22:14:45,494 p=31915 u=ubuntu n=ansible | TASK [Start and enable Nginx] ***********************************************************************************
+2024-05-16 22:14:47,064 p=31915 u=ubuntu n=ansible | ok: [web01]
+2024-05-16 22:14:47,069 p=31915 u=ubuntu n=ansible | TASK [Disable Nginx default website] ****************************************************************************
+2024-05-16 22:14:47,535 p=31915 u=ubuntu n=ansible | changed: [web01]
+2024-05-16 22:14:47,540 p=31915 u=ubuntu n=ansible | TASK [Deploy web config file] ***********************************************************************************
+2024-05-16 22:14:48,404 p=31915 u=ubuntu n=ansible | fatal: [web01]: FAILED! => {"changed": false, "checksum": "7f4c0ebd81cc648559d3bdea667f4fe14ccf7141", "msg": "Destination directory /etc/nginx/sites-avaiable does not exist"}
+2024-05-16 22:14:48,406 p=31915 u=ubuntu n=ansible | PLAY RECAP ******************************************************************************************************
+2024-05-16 22:14:48,406 p=31915 u=ubuntu n=ansible | web01                      : ok=3    changed=2    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2024-05-16 22:16:48,482 p=31991 u=ubuntu n=ansible | PLAY [Set up Nginx service] *************************************************************************************
+2024-05-16 22:16:48,491 p=31991 u=ubuntu n=ansible | TASK [Install nginx] ********************************************************************************************
+2024-05-16 22:16:50,402 p=31991 u=ubuntu n=ansible | ok: [web01]
+2024-05-16 22:16:50,407 p=31991 u=ubuntu n=ansible | TASK [Start and enable Nginx] ***********************************************************************************
+2024-05-16 22:16:51,977 p=31991 u=ubuntu n=ansible | ok: [web01]
+2024-05-16 22:16:51,982 p=31991 u=ubuntu n=ansible | TASK [Disable Nginx default website] ****************************************************************************
+2024-05-16 22:16:52,445 p=31991 u=ubuntu n=ansible | ok: [web01]
+2024-05-16 22:16:52,449 p=31991 u=ubuntu n=ansible | TASK [Deploy web config file] ***********************************************************************************
+2024-05-16 22:16:53,297 p=31991 u=ubuntu n=ansible | changed: [web01]
+2024-05-16 22:16:53,301 p=31991 u=ubuntu n=ansible | TASK [Enable the vproapp website] *******************************************************************************
+2024-05-16 22:16:53,615 p=31991 u=ubuntu n=ansible | changed: [web01]
+2024-05-16 22:16:53,619 p=31991 u=ubuntu n=ansible | RUNNING HANDLER [Restart Nginx] *********************************************************************************
+2024-05-16 22:16:54,674 p=31991 u=ubuntu n=ansible | fatal: [web01]: FAILED! => {"changed": false, "msg": "Unable to restart service nginx: Job for nginx.service failed because the control process exited with error code.\nSee \"systemctl status nginx.service\" and \"journalctl -xeu nginx.service\" for details.\n"}
+2024-05-16 22:16:54,677 p=31991 u=ubuntu n=ansible | PLAY RECAP ******************************************************************************************************
+2024-05-16 22:16:54,677 p=31991 u=ubuntu n=ansible | web01                      : ok=5    changed=2    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2024-05-16 22:38:10,147 p=32109 u=ubuntu n=ansible | PLAY [Set up Nginx service] *************************************************************************************
+2024-05-16 22:38:10,157 p=32109 u=ubuntu n=ansible | TASK [Install nginx] ********************************************************************************************
+2024-05-16 22:38:11,996 p=32109 u=ubuntu n=ansible | ok: [web01]
+2024-05-16 22:38:12,001 p=32109 u=ubuntu n=ansible | TASK [Start and enable Nginx] ***********************************************************************************
+2024-05-16 22:38:13,612 p=32109 u=ubuntu n=ansible | fatal: [web01]: FAILED! => {"changed": false, "msg": "Unable to start service nginx: Job for nginx.service failed because the control process exited with error code.\nSee \"systemctl status nginx.service\" and \"journalctl -xeu nginx.service\" for details.\n"}
+2024-05-16 22:38:13,613 p=32109 u=ubuntu n=ansible | PLAY RECAP ******************************************************************************************************
+2024-05-16 22:38:13,613 p=32109 u=ubuntu n=ansible | web01                      : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2024-05-16 22:40:36,617 p=32156 u=ubuntu n=ansible | PLAY [Set up Nginx service] *************************************************************************************
+2024-05-16 22:40:36,627 p=32156 u=ubuntu n=ansible | TASK [Install nginx] ********************************************************************************************
+2024-05-16 22:40:38,429 p=32156 u=ubuntu n=ansible | ok: [web01]
+2024-05-16 22:40:38,434 p=32156 u=ubuntu n=ansible | TASK [Start and enable Nginx] ***********************************************************************************
+2024-05-16 22:40:40,027 p=32156 u=ubuntu n=ansible | fatal: [web01]: FAILED! => {"changed": false, "msg": "Unable to start service nginx: Job for nginx.service failed because the control process exited with error code.\nSee \"systemctl status nginx.service\" and \"journalctl -xeu nginx.service\" for details.\n"}
+2024-05-16 22:40:40,030 p=32156 u=ubuntu n=ansible | PLAY RECAP ******************************************************************************************************
+2024-05-16 22:40:40,030 p=32156 u=ubuntu n=ansible | web01                      : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2024-05-16 22:41:58,553 p=32186 u=ubuntu n=ansible | PLAY [Set up Nginx service] *************************************************************************************
+2024-05-16 22:41:58,562 p=32186 u=ubuntu n=ansible | TASK [Install nginx] ********************************************************************************************
+2024-05-16 22:42:00,383 p=32186 u=ubuntu n=ansible | ok: [web01]
+2024-05-16 22:42:00,388 p=32186 u=ubuntu n=ansible | TASK [Start and enable Nginx] ***********************************************************************************
+2024-05-16 22:42:02,021 p=32186 u=ubuntu n=ansible | changed: [web01]
+2024-05-16 22:42:02,026 p=32186 u=ubuntu n=ansible | TASK [Disable Nginx default website] ****************************************************************************
+2024-05-16 22:42:02,491 p=32186 u=ubuntu n=ansible | ok: [web01]
+2024-05-16 22:42:02,494 p=32186 u=ubuntu n=ansible | TASK [Deploy web config file] ***********************************************************************************
+2024-05-16 22:42:03,402 p=32186 u=ubuntu n=ansible | changed: [web01]
+2024-05-16 22:42:03,404 p=32186 u=ubuntu n=ansible | TASK [Enable the vproapp website] *******************************************************************************
+2024-05-16 22:42:03,729 p=32186 u=ubuntu n=ansible | changed: [web01]
+2024-05-16 22:42:03,734 p=32186 u=ubuntu n=ansible | RUNNING HANDLER [Restart Nginx] *********************************************************************************
+2024-05-16 22:42:04,751 p=32186 u=ubuntu n=ansible | fatal: [web01]: FAILED! => {"changed": false, "msg": "Unable to restart service nginx: Job for nginx.service failed because the control process exited with error code.\nSee \"systemctl status nginx.service\" and \"journalctl -xeu nginx.service\" for details.\n"}
+2024-05-16 22:42:04,752 p=32186 u=ubuntu n=ansible | PLAY RECAP ******************************************************************************************************
+2024-05-16 22:42:04,753 p=32186 u=ubuntu n=ansible | web01                      : ok=5    changed=3    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2024-05-16 22:45:14,144 p=32277 u=ubuntu n=ansible | PLAY [Set up Nginx service] *************************************************************************************
+2024-05-16 22:45:14,153 p=32277 u=ubuntu n=ansible | TASK [Install nginx] ********************************************************************************************
+2024-05-16 22:45:15,977 p=32277 u=ubuntu n=ansible | ok: [web01]
+2024-05-16 22:45:15,983 p=32277 u=ubuntu n=ansible | TASK [Start and enable Nginx] ***********************************************************************************
+2024-05-16 22:45:17,592 p=32277 u=ubuntu n=ansible | fatal: [web01]: FAILED! => {"changed": false, "msg": "Unable to start service nginx: Job for nginx.service failed because the control process exited with error code.\nSee \"systemctl status nginx.service\" and \"journalctl -xeu nginx.service\" for details.\n"}
+2024-05-16 22:45:17,593 p=32277 u=ubuntu n=ansible | PLAY RECAP ******************************************************************************************************
+2024-05-16 22:45:17,593 p=32277 u=ubuntu n=ansible | web01                      : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2024-05-16 22:45:56,414 p=32306 u=ubuntu n=ansible | PLAY [Set up Nginx service] *************************************************************************************
+2024-05-16 22:45:56,424 p=32306 u=ubuntu n=ansible | TASK [Install nginx] ********************************************************************************************
+2024-05-16 22:45:57,687 p=32306 u=ubuntu n=ansible | ok: [web01]
+2024-05-16 22:45:57,692 p=32306 u=ubuntu n=ansible | TASK [Start and enable Nginx] ***********************************************************************************
+2024-05-16 22:45:59,331 p=32306 u=ubuntu n=ansible | changed: [web01]
+2024-05-16 22:45:59,336 p=32306 u=ubuntu n=ansible | TASK [Disable Nginx default website] ****************************************************************************
+2024-05-16 22:45:59,795 p=32306 u=ubuntu n=ansible | ok: [web01]
+2024-05-16 22:45:59,800 p=32306 u=ubuntu n=ansible | TASK [Deploy web config file] ***********************************************************************************
+2024-05-16 22:46:00,683 p=32306 u=ubuntu n=ansible | changed: [web01]
+2024-05-16 22:46:00,687 p=32306 u=ubuntu n=ansible | TASK [Enable the vproapp website] *******************************************************************************
+2024-05-16 22:46:01,004 p=32306 u=ubuntu n=ansible | changed: [web01]
+2024-05-16 22:46:01,009 p=32306 u=ubuntu n=ansible | RUNNING HANDLER [Restart Nginx] *********************************************************************************
+2024-05-16 22:46:02,049 p=32306 u=ubuntu n=ansible | changed: [web01]
+2024-05-16 22:46:02,054 p=32306 u=ubuntu n=ansible | PLAY RECAP ******************************************************************************************************
+2024-05-16 22:46:02,055 p=32306 u=ubuntu n=ansible | web01                      : ok=6    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
