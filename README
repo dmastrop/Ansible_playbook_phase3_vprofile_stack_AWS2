@@ -426,13 +426,7 @@ root
 
       nginxvpro.j2 (created in phase3) This is used in the web.yml and deployed as a template to /etc/nginx/sites-available/vproapp on the ngnix server. This has the traffic steering policy from loadblancer to the port 80 nginx server which routes the traffic to port 8080 of the app01 tomcat server.  The tomcat server has the .war vprofile application built from source code src directory
         detail:
-          nginx is target instance of the appication loadbalancer
-          
-          The nginx routes the http://<loadbalancer_URL> port 80 traffic to port 8080 app01 tomcat applicaiton server
-          
-          Once the traffic reaches the app01 server the app01 server uses application.js (application.properties) to route the traffic to backend servers via their hostnames (d01, mc01, rmq01)
-          
-          provision-stack/group_vars/dbsrvgrp has the db credentials for the database
+          nginx is target instance of the appication loadbalancer.  The nginx routes the http://<loadbalancer_URL> port 80 traffic to port 8080 app01 tomcat applicaiton server. Once the traffic reaches the app01 server the app01 server uses application.js (application.properties) to route the traffic to backend servers via their hostnames (d01, mc01, rmq01). The provision-stack/group_vars/dbsrvgrp has the db credentials for the database
           
 
     provision-stack/files
