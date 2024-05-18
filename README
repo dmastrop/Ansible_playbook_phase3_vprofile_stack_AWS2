@@ -190,6 +190,9 @@ This is the ec2_instance module task
 
 
 
+
+
+
 # Overview for project22 (vprofile-stack-phase2 branch)
 
 Project22: Phase2 of project21. With VPC stack, provision private subnets for backed servers for 
@@ -330,8 +333,16 @@ The keys can be manually replicated on the bastion host and PC as required if ma
 2. Delete the NAT GW
 3. Release the EIP (Elastic IP)
 4. Delete Loadbalancer
-5. Delete the VPC. This will get rid of all of the other network objects except the Security pem keys. Keep those for the
-next time the setup is brought up (bastion host pem key and the EC2 instances pem key)
+5. Delete the VPC. This will get rid of all of the other network objects except the Security pem keys. Keep those for the next time the setup is brought up (bastion host pem key and the EC2 instances pem key)
+
+Do not delete the ansible controller.
+
+
+
+
+
+
+
 
 
 
@@ -341,37 +352,102 @@ next time the setup is brought up (bastion host pem key and the EC2 instances pe
 
 # Overview for project23 (vprofile-stack-phase3 branch)
 
-Project23: This will rollout all the services into the backend server infrastructure created in phase2
+Project23: This will rollout all the services onto the backend server infrastructure created in phase2
 There will be several new vars files, template files and ansible playbook yml files to do this, as well as an ansible.cfg file with the SSH parameter settings and configuration. The details of each of these files are below.
 
-The general hierarchy of the repository in regards to these files and phase 1 and 2 files as well:
-
-vars/
-  output_vars_IDs (created in phase1) (this needs to be pushed from the ansible controller to github and pulled to local VSCode repo/workspace)
-
-  vpc_setup (created in phase1)
-
-  vprostacksetup (create in phase2)
 
 
-provision-stack/
-  the EC2 private pem SSH login key loginkey_EC2_vprofile.pem  (note this is a .gitignore file and is not pushed to github remote repo (created in phase2)
-  
-  inventory-vpro (created in phase2) (needs to be pushed from ansible controller to github and pulled to local VSCode repo/workspace)
+# Create an ami from the phase2 ansible controller. This new controller will be placed onto the vprofile VPC created above instead of the default VPC.
 
-  ansible.cfg (created in phase3)
+For phases 1 and 2 the ansible controller was on the default VPC. In order to provison the EC2 server instances on the vprofile VPC created in the first 2 phases, the ansible controller has to be on the vprofile VPC.   Creating an ami from the original ansible controller and putting this new ansible controller in the vprofile VPC is the easiest solution. Another alternative is to use the bastion host that was created in phase1, above.
 
-  site.yml (master ansible-playbook for phase3 service provisioning) (created in phase3)
+This new ansible controller in the vprofile VPC can use the same keypair and the same security group as the original ansible controller.
 
-
-  provision-stack/group_vars:
-    hostsip (created in phase2) (Need to be pushed from ansible controller to github and then pulled to local VSCode repo/workspace)
-
-    dbsrvgroup (created in phase3)
+Once the controller is up, SSH into it and clone the phase3 github repository.   The general flow will be to run the ansible playbook from this ansible controller to provision phase1, phase2 and phase3, committing the changes on the ansible controller and pushing to the remote github repository and then pulling the changes into the local VSCode workspace.   This is important as noted above for the output_vars_IPs and inventory-vpro and hostsip files that are only created on the ansible controller. Otherwise any push from the local VSCode workspace will overwrite these files with old data on the ansible controller.
 
 
-  provision-stack/templates:
-    application.j2 (this is application.properties from the vprofile-application source code) (created in phase3)
 
-    nginxvpro.j2 (created in phase3)
+# The general hierarchy of the repository in regards to these files and phase 1 and 2 and 3 files as well:
 
+
+
+root 
+  site.yml master ansible playbook for vpc-setup.yml and bastion-instance.yml playbooks (phase1)
+
+  vpro-ec2-stack.yml ansible playbook to instantiate the 5 EC2 instances, the loadbalancer, and associated security groups and key pairs (phase2)
+
+
+  vars/
+    output_vars_IDs (created in phase1) (this needs to be pushed from the ansible controller to github and pulled to local VSCode repo/workspace).  It is updated at the ansible controller only. This has the AWS object ids of many of the VPC stack networking components.
+
+    vpc_setup (created in phase1)  This has many of the variable values for elements used in the VPC stack when running the site.yml root ansible playbook (vpc-setup.yml and bastion-instance.yml)
+
+    vprostacksetup (created in phase2) This has the amis for the EC2 server instances that are created by the vpro-ec2-stack.yml ansible playbook.
+
+
+  provision-stack/ (this is for phase3 implementation)
+    loginkey_EC2_vprofile.pem    The EC2 private pem SSH login key  (note this is a .gitignore file and is not pushed to github remote repo) (created in phase2)
+
+    inventory-vpro (created in phase2) (needs to be pushed from ansible controller to github and pulled to local VSCode repo/workspace)   This file has the ansible-host definitions
+
+    ansible.cfg (created in phase3)  This defines the inventory file as inventory-vpro and has the SSH configuration and parameter details so that ansible con provision services on the EC2 instances (phase3)
+
+    site.yml (master ansible-playbook for phase3 service provisioning) (created in phase3)   This has the imports for the ansible playbooks that will do the phase3 service provisioning on the EC2 instances.  These files are run sequentially as:
+    
+      build.yml  This will build a new .war vprofile app file if the src code has been changed on github
+
+      set-host-ip-map.yml This will create /etc/hosts files for the db01 rmq01 mc01 app01 and web01 to private ip mappings so that the ansible controller can SSH into each of the EC2 instances to provision them.
+
+      db.yml  This configures the mysql server with the dbuser and dbpassword and dbaccount names 
+
+      dbdeploy.yml  This copies the files/db_backup.sql to the mysql server to configure the db schema
+
+      memcache.yml  This provisions the memcached daemon on the server
+
+      rabbitmq.yml  This provisions rabbitmq service on the rabbitmq server. This installation is revised using a script found at provision-stack/files/rabbitmq-shell-insall-script.sh.  Once the service has been provisioned a user and password are configured and the plugin is installed.
+
+      appserver.yml This sets up the tomcat service on the server by copying the template templates/tomcat8-ubuntu-svcfile.j2 to /etc/systemd/system/tomcat8.service
+      This provisions tomcat8 on the server, and backs up and deploys the latest artifact .war file that is built from source (build.yml ansible playbook) at /usr/local/tomcat8/webapps/ROOT.war.  
+      Next the web configuration file for the endpoints is copied from templates/pplication.j2 to /usr/local/tomcat8/webapps/ROOT/WEB-INF/classes/application.properties so that the vprofile application can communicate with the backend rabbitmq memcached and mysql servers
+
+      web.yml  This provisions nginx on the web01 server.  This uses the templates/nginxvpro.j2 configuration file
+
+
+    provision-stack/group_vars:
+      hostsip (created in phase2) (Need to be pushed from ansible controller to github and then pulled to local VSCode repo/workspace)
+
+      dbsrvgroup (created in phase3)  Used in db.yml ansible playbook for the hosts: scope
+
+
+    provision-stack/templates:
+      application.j2 (created in phase3) (this is application.properties from the vprofile-application source code)   This is used in the appserver.yml ansible playbook to configure the backend connection endpoints on the tomcat8 server to the db01, mc01 and rmq01 servers on their ports.
+
+      tomcat8-ubuntu-svcfile.j2 (created in phase3) Use in appserver.yml to provision the tomcat8 service on the app01 server
+
+      nginxvpro.j2 (created in phase3) This is used in the web.yml and deployed as a template to /etc/nginx/sites-available/vproapp on the ngnix server. This has the traffic steering policy from loadblancer to the port 80 nginx server which routes the traffic to port 8080 of the app01 tomcat server.  The tomcat server has the .war vprofile application built from source code src directory
+        detail:
+          nginx is target instance of the appication loadbalancer
+          
+          The nginx routes the http://<loadbalancer_URL> port 80 traffic to port 8080 app01 tomcat applicaiton server
+          
+          Once the traffic reaches the app01 server the app01 server uses application.js (application.properties) to route the traffic to backend servers via their hostnames (d01, mc01, rmq01)
+          
+          provision-stack/group_vars/dbsrvgrp has the db credentials for the database
+          
+
+    provision-stack/files
+      db_backup.sql is used by dbdeploy.yml to deploy the schema on the mysql server
+
+      rabbit-mq-shell-install-script.sh is used by rabbitmq.yml and copied into the rabbitmq EC2 instance and run as a bash script to install rabbitmq on the server
+
+
+
+# Running phase1, phase2 and phase3 from the ansible controller:
+
+1. ansible-playbook site.yml (root)
+2. git push from ansible controller to github repo
+3. git pull from github repo to the local VSCode workspace
+4. ansible-playbook vpro-ec2-stack.yml
+5. git push from ansible controller to github repo
+6. git pull from github repo to the local VSCode workspce
+7. ansible-playbook provsion-stack/site.yml will run all of the server services ansible playbooks to provision the servers. This is a full stack implementation of the vprofile app.
