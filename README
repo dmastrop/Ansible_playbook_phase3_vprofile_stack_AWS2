@@ -451,3 +451,14 @@ root
 5. git push from ansible controller to github repo
 6. git pull from github repo to the local VSCode workspce
 7. ansible-playbook provsion-stack/site.yml will run all of the server services ansible playbooks to provision the servers. This is a full stack implementation of the vprofile app.
+
+
+# deletion process
+
+1. Delete the bastion host EC2 instance and the 5 stack EC2 instances. Keep the ansible contoller ansible-EC2-project21
+2. Delete the NAT GW
+3. Release the EIP (Elastic IP)
+4. Delete Loadbalancer
+5. Delete the VPC. This will get rid of all of the other network objects except the Security pem keys. Keep those for the next time the setup is brought up (bastion host pem key and the EC2 instances pem key)
+
+Do not delete the ansible controller.
