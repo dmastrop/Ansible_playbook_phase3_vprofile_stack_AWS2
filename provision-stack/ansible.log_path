@@ -674,3 +674,161 @@ uppercased. The default will be changed to true in community.mysql 4.0.0.
 2024-05-17 02:39:29,958 p=33637 u=ubuntu n=ansible | mc01                       : ok=7    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 2024-05-17 02:39:29,959 p=33637 u=ubuntu n=ansible | rmq01                      : ok=10   changed=7    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 2024-05-17 02:39:29,959 p=33637 u=ubuntu n=ansible | web01                      : ok=9    changed=6    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-05-18 00:23:38,470 p=39517 u=ubuntu n=ansible | PLAY [Generate the artifact, copy the artifact and sql file to files directory] *********************************
+2024-05-18 00:23:38,477 p=39517 u=ubuntu n=ansible | TASK [Gathering Facts] ******************************************************************************************
+2024-05-18 00:23:39,730 p=39517 u=ubuntu n=ansible | ok: [localhost]
+2024-05-18 00:23:39,751 p=39517 u=ubuntu n=ansible | TASK [Install jdk, maven and git] *******************************************************************************
+2024-05-18 00:23:47,658 p=39517 u=ubuntu n=ansible | ok: [localhost] => (item=git)
+2024-05-18 00:23:50,166 p=39517 u=ubuntu n=ansible | ok: [localhost] => (item=openjdk-8-jdk)
+2024-05-18 00:23:52,657 p=39517 u=ubuntu n=ansible | ok: [localhost] => (item=maven)
+2024-05-18 00:23:52,669 p=39517 u=ubuntu n=ansible | TASK [Clone the source code from github devopshydclub vprofile-project, branch vp-rem] **************************
+2024-05-18 00:23:53,387 p=39517 u=ubuntu n=ansible | ok: [localhost]
+2024-05-18 00:23:53,395 p=39517 u=ubuntu n=ansible | TASK [mvn install command to build artifact] ********************************************************************
+2024-05-18 00:23:53,410 p=39517 u=ubuntu n=ansible | skipping: [localhost]
+2024-05-18 00:23:53,419 p=39517 u=ubuntu n=ansible | TASK [Copy artifacts to files directory] ************************************************************************
+2024-05-18 00:23:54,681 p=39517 u=ubuntu n=ansible | ok: [localhost] => (item=/home/ubuntu/Ansible_playbook_phase3_vprofile_stack_AWS2/provision-stack/Vprofile-repo/target/vprofile-v2.war)
+2024-05-18 00:23:54,692 p=39517 u=ubuntu n=ansible | TASK [Copy SQL file to files directory as well] *****************************************************************
+2024-05-18 00:23:55,148 p=39517 u=ubuntu n=ansible | ok: [localhost]
+2024-05-18 00:23:55,170 p=39517 u=ubuntu n=ansible | PLAY [St the host to ip mapping in /etc/hosts file of all the instances in the stack] ***************************
+2024-05-18 00:23:55,173 p=39517 u=ubuntu n=ansible | TASK [Gathering Facts] ******************************************************************************************
+2024-05-18 00:23:56,834 p=39517 u=ubuntu n=ansible | ok: [cntl]
+2024-05-18 00:23:58,170 p=39517 u=ubuntu n=ansible | ok: [app01]
+2024-05-18 00:23:58,184 p=39517 u=ubuntu n=ansible | ok: [mc01]
+2024-05-18 00:23:58,229 p=39517 u=ubuntu n=ansible | ok: [web01]
+2024-05-18 00:23:58,833 p=39517 u=ubuntu n=ansible | ok: [rmq01]
+2024-05-18 00:24:01,329 p=39517 u=ubuntu n=ansible | ok: [db01]
+2024-05-18 00:24:01,392 p=39517 u=ubuntu n=ansible | TASK [Import the VPC setup Variables group_vars/hostsip file] ***************************************************
+2024-05-18 00:24:01,442 p=39517 u=ubuntu n=ansible | ok: [cntl]
+2024-05-18 00:24:01,474 p=39517 u=ubuntu n=ansible | ok: [web01]
+2024-05-18 00:24:01,494 p=39517 u=ubuntu n=ansible | ok: [app01]
+2024-05-18 00:24:01,519 p=39517 u=ubuntu n=ansible | ok: [rmq01]
+2024-05-18 00:24:01,522 p=39517 u=ubuntu n=ansible | ok: [mc01]
+2024-05-18 00:24:01,533 p=39517 u=ubuntu n=ansible | ok: [db01]
+2024-05-18 00:24:01,542 p=39517 u=ubuntu n=ansible | TASK [Update the hosts file for all the hosts.] *****************************************************************
+2024-05-18 00:24:02,458 p=39517 u=ubuntu n=ansible | changed: [rmq01]
+2024-05-18 00:24:02,462 p=39517 u=ubuntu n=ansible | changed: [app01]
+2024-05-18 00:24:02,462 p=39517 u=ubuntu n=ansible | changed: [mc01]
+2024-05-18 00:24:02,463 p=39517 u=ubuntu n=ansible | changed: [web01]
+2024-05-18 00:24:02,515 p=39517 u=ubuntu n=ansible | changed: [cntl]
+2024-05-18 00:24:02,825 p=39517 u=ubuntu n=ansible | changed: [db01]
+2024-05-18 00:24:02,938 p=39517 u=ubuntu n=ansible | PLAY [Set up Mysql with accounts db and remote login credentials] ***********************************************
+2024-05-18 00:24:02,955 p=39517 u=ubuntu n=ansible | TASK [Installing Mysql service an dependencies] *****************************************************************
+2024-05-18 00:25:12,708 p=39517 u=ubuntu n=ansible | changed: [db01] => (item=mysql-server)
+2024-05-18 00:25:20,444 p=39517 u=ubuntu n=ansible | changed: [db01] => (item=mysql-client)
+2024-05-18 00:25:21,372 p=39517 u=ubuntu n=ansible | failed: [db01] (item=python-mysqldb) => {"ansible_loop_var": "item", "changed": false, "item": "python-mysqldb", "msg": "No package matching 'python-mysqldb' is available"}
+2024-05-18 00:25:27,936 p=39517 u=ubuntu n=ansible | changed: [db01] => (item=python3-mysqldb)
+2024-05-18 00:25:43,803 p=39517 u=ubuntu n=ansible | changed: [db01] => (item=libmysqlclient-dev)
+2024-05-18 00:25:43,808 p=39517 u=ubuntu n=ansible | ...ignoring
+2024-05-18 00:25:43,817 p=39517 u=ubuntu n=ansible | TASK [creating the mysql user] **********************************************************************************
+2024-05-18 00:25:44,932 p=39517 u=ubuntu n=ansible | [WARNING]: Option column_case_sensitive is not provided. The default is now false, so the column's name will be
+uppercased. The default will be changed to true in community.mysql 4.0.0.
+
+2024-05-18 00:25:44,932 p=39517 u=ubuntu n=ansible | changed: [db01]
+2024-05-18 00:25:44,940 p=39517 u=ubuntu n=ansible | TASK [Creating accounts DB] *************************************************************************************
+2024-05-18 00:25:45,574 p=39517 u=ubuntu n=ansible | changed: [db01]
+2024-05-18 00:25:45,583 p=39517 u=ubuntu n=ansible | TASK [Enable remote login to mysql service] *********************************************************************
+2024-05-18 00:25:46,092 p=39517 u=ubuntu n=ansible | changed: [db01]
+2024-05-18 00:25:46,109 p=39517 u=ubuntu n=ansible | RUNNING HANDLER [Restart mysql] *********************************************************************************
+2024-05-18 00:25:50,168 p=39517 u=ubuntu n=ansible | changed: [db01]
+2024-05-18 00:25:50,184 p=39517 u=ubuntu n=ansible | PLAY [Deploy SQL file on the acounts db] ************************************************************************
+2024-05-18 00:25:50,201 p=39517 u=ubuntu n=ansible | TASK [Copy SQL file db_backup.sql to dbsrv group of servers (db01)] *********************************************
+2024-05-18 00:25:51,117 p=39517 u=ubuntu n=ansible | changed: [db01]
+2024-05-18 00:25:51,126 p=39517 u=ubuntu n=ansible | TASK [Restoring the DB] *****************************************************************************************
+2024-05-18 00:25:51,728 p=39517 u=ubuntu n=ansible | changed: [db01]
+2024-05-18 00:25:51,746 p=39517 u=ubuntu n=ansible | RUNNING HANDLER [Restart mysql] *********************************************************************************
+2024-05-18 00:25:54,824 p=39517 u=ubuntu n=ansible | changed: [db01]
+2024-05-18 00:25:54,839 p=39517 u=ubuntu n=ansible | PLAY [Install Memcache, Start and enable the service] ***********************************************************
+2024-05-18 00:25:54,855 p=39517 u=ubuntu n=ansible | TASK [Install Memcache] *****************************************************************************************
+2024-05-18 00:26:13,861 p=39517 u=ubuntu n=ansible | changed: [mc01]
+2024-05-18 00:26:13,870 p=39517 u=ubuntu n=ansible | TASK [Start and Enable Memcache] ********************************************************************************
+2024-05-18 00:26:14,375 p=39517 u=ubuntu n=ansible | ok: [mc01]
+2024-05-18 00:26:14,386 p=39517 u=ubuntu n=ansible | TASK [Enable remote login to memcache] **************************************************************************
+2024-05-18 00:26:14,711 p=39517 u=ubuntu n=ansible | changed: [mc01]
+2024-05-18 00:26:14,726 p=39517 u=ubuntu n=ansible | RUNNING HANDLER [Restart memcached] *****************************************************************************
+2024-05-18 00:26:15,967 p=39517 u=ubuntu n=ansible | changed: [mc01]
+2024-05-18 00:26:15,982 p=39517 u=ubuntu n=ansible | PLAY [Install and Set up RabbitMQ with user] ********************************************************************
+2024-05-18 00:26:15,997 p=39517 u=ubuntu n=ansible | TASK [Copy over the installaton shell script from files/rabbitmq-shell-install-script.sh] ***********************
+2024-05-18 00:26:17,531 p=39517 u=ubuntu n=ansible | changed: [rmq01]
+2024-05-18 00:26:17,539 p=39517 u=ubuntu n=ansible | TASK [execute the shell installation script] ********************************************************************
+2024-05-18 00:26:59,663 p=39517 u=ubuntu n=ansible | changed: [rmq01]
+2024-05-18 00:26:59,672 p=39517 u=ubuntu n=ansible | TASK [Start and enable RMQ service] *****************************************************************************
+2024-05-18 00:27:00,313 p=39517 u=ubuntu n=ansible | ok: [rmq01]
+2024-05-18 00:27:00,322 p=39517 u=ubuntu n=ansible | TASK [Config setup] *********************************************************************************************
+2024-05-18 00:27:00,955 p=39517 u=ubuntu n=ansible | changed: [rmq01]
+2024-05-18 00:27:00,963 p=39517 u=ubuntu n=ansible | TASK [Configure the rabbitmq username and password] *************************************************************
+2024-05-18 00:27:08,835 p=39517 u=ubuntu n=ansible | changed: [rmq01]
+2024-05-18 00:27:08,868 p=39517 u=ubuntu n=ansible | TASK [Enables the rabbitmq_management plugin] *******************************************************************
+2024-05-18 00:27:15,963 p=39517 u=ubuntu n=ansible | changed: [rmq01]
+2024-05-18 00:27:15,978 p=39517 u=ubuntu n=ansible | RUNNING HANDLER [Restart RMQ] ***********************************************************************************
+2024-05-18 00:27:25,702 p=39517 u=ubuntu n=ansible | changed: [rmq01]
+2024-05-18 00:27:25,717 p=39517 u=ubuntu n=ansible | PLAY [Set up Tomcat8 & Deploy Artifact] *************************************************************************
+2024-05-18 00:27:25,725 p=39517 u=ubuntu n=ansible | TASK [Gathering Facts] ******************************************************************************************
+2024-05-18 00:27:27,395 p=39517 u=ubuntu n=ansible | ok: [app01]
+2024-05-18 00:27:27,413 p=39517 u=ubuntu n=ansible | TASK [Install JDK on Ubuntu 18/20] ******************************************************************************
+2024-05-18 00:28:13,112 p=39517 u=ubuntu n=ansible | changed: [app01]
+2024-05-18 00:28:13,120 p=39517 u=ubuntu n=ansible | TASK [Download Tomcat Tar Ball/Binaries] ************************************************************************
+2024-05-18 00:28:15,579 p=39517 u=ubuntu n=ansible | changed: [app01]
+2024-05-18 00:28:15,588 p=39517 u=ubuntu n=ansible | TASK [Add tomcat group] *****************************************************************************************
+2024-05-18 00:28:16,081 p=39517 u=ubuntu n=ansible | changed: [app01]
+2024-05-18 00:28:16,089 p=39517 u=ubuntu n=ansible | TASK [Add tomcat user] ******************************************************************************************
+2024-05-18 00:28:16,679 p=39517 u=ubuntu n=ansible | changed: [app01]
+2024-05-18 00:28:16,687 p=39517 u=ubuntu n=ansible | TASK [Create directory /tmp/tomcat8] ****************************************************************************
+2024-05-18 00:28:17,007 p=39517 u=ubuntu n=ansible | changed: [app01]
+2024-05-18 00:28:17,016 p=39517 u=ubuntu n=ansible | TASK [Extract tomcat] *******************************************************************************************
+2024-05-18 00:28:18,289 p=39517 u=ubuntu n=ansible | changed: [app01]
+2024-05-18 00:28:18,299 p=39517 u=ubuntu n=ansible | TASK [debug] ****************************************************************************************************
+2024-05-18 00:28:18,319 p=39517 u=ubuntu n=ansible | ok: [app01] => {
+    "msg": "apache-tomcat-8.5.37"
+}
+2024-05-18 00:28:18,331 p=39517 u=ubuntu n=ansible | TASK [Synchronize /tmp/tomcat8/tomcat_cont /usr/local/tomcat8.] *************************************************
+2024-05-18 00:28:19,089 p=39517 u=ubuntu n=ansible | changed: [app01]
+2024-05-18 00:28:19,100 p=39517 u=ubuntu n=ansible | TASK [Change the ownership of the /usr/local/tomcat8 directory] *************************************************
+2024-05-18 00:28:19,476 p=39517 u=ubuntu n=ansible | changed: [app01]
+2024-05-18 00:28:19,485 p=39517 u=ubuntu n=ansible | TASK [Set up tomcat SVC file on ubuntu 16 and 18] ***************************************************************
+2024-05-18 00:28:20,095 p=39517 u=ubuntu n=ansible | changed: [app01]
+2024-05-18 00:28:20,103 p=39517 u=ubuntu n=ansible | TASK [for the systemd to reload and re-read the configs (2.4 and above)] ****************************************
+2024-05-18 00:28:20,927 p=39517 u=ubuntu n=ansible | ok: [app01]
+2024-05-18 00:28:20,935 p=39517 u=ubuntu n=ansible | TASK [Start & Enable tomcat Service] ****************************************************************************
+2024-05-18 00:28:21,850 p=39517 u=ubuntu n=ansible | changed: [app01]
+2024-05-18 00:28:21,859 p=39517 u=ubuntu n=ansible | TASK [Get the stats on the current ROOT artifact file if it is present.] ****************************************
+2024-05-18 00:28:22,386 p=39517 u=ubuntu n=ansible | ok: [app01]
+2024-05-18 00:28:22,395 p=39517 u=ubuntu n=ansible | TASK [Stop the tomcat8 service] *********************************************************************************
+2024-05-18 00:28:24,257 p=39517 u=ubuntu n=ansible | changed: [app01]
+2024-05-18 00:28:24,265 p=39517 u=ubuntu n=ansible | TASK [Archive the ROOT directory with timetamp above.] **********************************************************
+2024-05-18 00:28:24,727 p=39517 u=ubuntu n=ansible | changed: [app01]
+2024-05-18 00:28:24,736 p=39517 u=ubuntu n=ansible | TASK [copy ROOT dir with old_ROOT name] *************************************************************************
+2024-05-18 00:28:25,055 p=39517 u=ubuntu n=ansible | changed: [app01]
+2024-05-18 00:28:25,062 p=39517 u=ubuntu n=ansible | TASK [Delete current artifact] **********************************************************************************
+2024-05-18 00:28:25,403 p=39517 u=ubuntu n=ansible | changed: [app01] => (item=/usr/local/tomcat8/webapps/ROOT)
+2024-05-18 00:28:25,709 p=39517 u=ubuntu n=ansible | ok: [app01] => (item=/usr/local/tomcat8/webapps/ROOT.war)
+2024-05-18 00:28:25,719 p=39517 u=ubuntu n=ansible | TASK [Deploy nwe vprofile artifact] *****************************************************************************
+2024-05-18 00:28:28,805 p=39517 u=ubuntu n=ansible | changed: [app01]
+2024-05-18 00:28:28,814 p=39517 u=ubuntu n=ansible | TASK [Start tomcat8 service] ************************************************************************************
+2024-05-18 00:28:29,358 p=39517 u=ubuntu n=ansible | changed: [app01]
+2024-05-18 00:28:29,367 p=39517 u=ubuntu n=ansible | TASK [Wait until ROOT.war is extracted to the ROOT directory] ***************************************************
+2024-05-18 00:28:32,011 p=39517 u=ubuntu n=ansible | ok: [app01]
+2024-05-18 00:28:32,020 p=39517 u=ubuntu n=ansible | TASK [Deploy web configuration file] ****************************************************************************
+2024-05-18 00:28:33,142 p=39517 u=ubuntu n=ansible | changed: [app01]
+2024-05-18 00:28:33,159 p=39517 u=ubuntu n=ansible | RUNNING HANDLER [Restart Tomcat] ********************************************************************************
+2024-05-18 00:28:35,370 p=39517 u=ubuntu n=ansible | changed: [app01]
+2024-05-18 00:28:35,385 p=39517 u=ubuntu n=ansible | PLAY [Set up Nginx service] *************************************************************************************
+2024-05-18 00:28:35,401 p=39517 u=ubuntu n=ansible | TASK [Install nginx] ********************************************************************************************
+2024-05-18 00:28:58,637 p=39517 u=ubuntu n=ansible | changed: [web01]
+2024-05-18 00:28:58,645 p=39517 u=ubuntu n=ansible | TASK [Start and enable Nginx] ***********************************************************************************
+2024-05-18 00:28:59,167 p=39517 u=ubuntu n=ansible | ok: [web01]
+2024-05-18 00:28:59,176 p=39517 u=ubuntu n=ansible | TASK [Disable Nginx default website] ****************************************************************************
+2024-05-18 00:28:59,520 p=39517 u=ubuntu n=ansible | changed: [web01]
+2024-05-18 00:28:59,530 p=39517 u=ubuntu n=ansible | TASK [Deploy web config file] ***********************************************************************************
+2024-05-18 00:29:00,181 p=39517 u=ubuntu n=ansible | changed: [web01]
+2024-05-18 00:29:00,188 p=39517 u=ubuntu n=ansible | TASK [Enable the vproapp website] *******************************************************************************
+2024-05-18 00:29:00,524 p=39517 u=ubuntu n=ansible | changed: [web01]
+2024-05-18 00:29:00,542 p=39517 u=ubuntu n=ansible | RUNNING HANDLER [Restart Nginx] *********************************************************************************
+2024-05-18 00:29:01,216 p=39517 u=ubuntu n=ansible | changed: [web01]
+2024-05-18 00:29:01,229 p=39517 u=ubuntu n=ansible | PLAY RECAP ******************************************************************************************************
+2024-05-18 00:29:01,229 p=39517 u=ubuntu n=ansible | app01                      : ok=26   changed=19   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-05-18 00:29:01,230 p=39517 u=ubuntu n=ansible | cntl                       : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-05-18 00:29:01,230 p=39517 u=ubuntu n=ansible | db01                       : ok=11   changed=9    unreachable=0    failed=0    skipped=0    rescued=0    ignored=1   
+2024-05-18 00:29:01,230 p=39517 u=ubuntu n=ansible | localhost                  : ok=5    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+2024-05-18 00:29:01,230 p=39517 u=ubuntu n=ansible | mc01                       : ok=7    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-05-18 00:29:01,230 p=39517 u=ubuntu n=ansible | rmq01                      : ok=10   changed=7    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-05-18 00:29:01,231 p=39517 u=ubuntu n=ansible | web01                      : ok=9    changed=6    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
